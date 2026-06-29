@@ -1,0 +1,146 @@
+.investors-container {
+  max-width: 1100px;
+  padding: 2rem 0;
+}
+
+/* Header */
+
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.page-header p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Filters */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+/* Search */
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border: 0.5px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fff;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+/* Sector Buttons */
+
+.sector-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sector-btn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 0.5px solid #d1d5db;
+  background: white;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sector-btn:hover {
+  border-color: #afa9ec;
+}
+
+.sector-btn.active {
+  background: #eeedfe;
+  border-color: #afa9ec;
+  color: #3c3489;
+}
+
+/* Loading */
+
+.loading-text {
+  text-align: center;
+  padding: 3rem 0;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* Empty State */
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  border: 0.5px dashed #d1d5db;
+  border-radius: 14px;
+  background: #fafafa;
+}
+
+.empty-icon {
+  font-size: 28px;
+  color: #d1d5db;
+  margin-bottom: 12px;
+}
+
+.empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.empty-subtitle {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.clear-btn {
+  margin-top: 12px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 0.5px solid #d1d5db;
+  background: white;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.clear-btn:hover {
+  background: #f3f4f6;
+}

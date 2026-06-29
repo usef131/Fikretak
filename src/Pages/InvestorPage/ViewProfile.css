@@ -1,0 +1,226 @@
+/* ── Layout ── */
+.vp-page {
+    background: var(--fk-bg);
+    min-height: 100vh;
+}
+
+.vp-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 50%;
+}
+
+/* ── Loading / Error States ── */
+.vp-center-state {
+    background: var(--fk-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vp-error-state {
+    background: var(--fk-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.vp-spinner {
+    color: var(--fk-primary-btn);
+}
+
+.vp-error-icon {
+    font-size: 3rem;
+    color: var(--fk-border);
+}
+
+.vp-error-text {
+    color: var(--fk-text-muted);
+    font-weight: 600;
+}
+
+.vp-back-btn {
+    padding: 6px 18px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--fk-border);
+    background: var(--fk-surface);
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+/* ── Profile Card ── */
+.vp-profile-card {
+    position: relative;
+}
+
+.vp-cover {
+    height: 80px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    margin: -1rem -1rem 0;
+}
+
+.vp-avatar-row {
+    margin-top: -40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.vp-avatar {
+    width: 120px;
+    height: 120px;
+    font-size: 3rem;
+    border: 4px solid var(--fk-surface);
+}
+
+/* ── Action Buttons ── */
+.vp-actions {
+    padding-bottom: 4px;
+    display: flex;
+    gap: 8px;
+}
+
+.vp-follow-btn {
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--fk-border);
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.vp-follow-btn.following {
+    background: var(--fk-primary-btn);
+    color: #fff;
+}
+
+.vp-follow-btn.not-following {
+    background: var(--fk-surface);
+    color: inherit;
+}
+
+/* ── Profile Info ── */
+.vp-info {
+    padding-bottom: 4px;
+}
+
+.vp-name {
+    font-weight: 800;
+    font-size: 1.25rem;
+    margin-left: 1rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.5rem;
+    color: var(--fk-text-primary);
+}
+
+.vp-role-badge {
+    margin-left: 1rem;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.vp-role-badge.investor {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.vp-role-badge.entrepreneur {
+    background: #eef0ff;
+    color: var(--fk-primary-btn);
+}
+
+.vp-location {
+    margin-left: 10px;
+    font-size: 0.78rem;
+    color: var(--fk-text-muted);
+}
+
+.vp-bio {
+    margin-left: 1rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--fk-text-primary);
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* ── Sector Tags ── */
+.vp-sectors {
+    margin-left: 1rem;
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.vp-sector-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--fk-border);
+    color: var(--fk-text-muted);
+    background: var(--fk-bg);
+}
+
+/* ── Ticket / Email ── */
+.vp-meta {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--fk-text-muted);
+}
+
+.vp-meta strong {
+    color: var(--fk-text-primary);
+}
+
+.vp-email {
+    margin-left: 1rem;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    color: var(--fk-text-muted);
+}
+
+/* ── Stats Row ── */
+.vp-stats-row {
+    font-size: 0.875rem;
+}
+
+.vp-stat-value {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--fk-text-primary);
+}
+
+.vp-stat-label {
+    color: var(--fk-text-muted);
+    font-size: 0.78rem;
+}
+
+/* ── Tabs ── */
+.vp-tabs {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* ── Empty State ── */
+.vp-empty-icon {
+    font-size: 2.5rem;
+    color: var(--fk-border);
+}
+
+.vp-empty-text {
+    color: var(--fk-text-muted);
+    font-size: 0.875rem;
+}

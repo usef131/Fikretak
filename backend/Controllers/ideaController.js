@@ -160,7 +160,7 @@ exports.updateIdea = async (req, res) => {
     res.json({ idea })
       return res.status(403).json({ message: "Not authorized" });
 
-    const allowed = [
+     allowed = [
       "title",
       "summary",
       "description",

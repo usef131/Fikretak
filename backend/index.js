@@ -7,7 +7,6 @@ const postRoutes  = require('./routes/post')
 const authRoutes  = require('./routes/auth')
 const ideaRoutes  = require('./routes/ideas')
 const userRoutes = require('./routes/Investors')
-const projectRoutes = require('./Routes/projectroute')
 const investmentRoutes = require('./Routes/investment')
 
 
@@ -29,7 +28,6 @@ app.use('/api', limiter)
 app.use('/api/auth',  authRoutes)
 app.use('/api/ideas', ideaRoutes)
 app.use('/api/users', userRoutes)
-app.use('/api/projects', projectRoutes)
 app.use('/api/ideas/:id/investments', investmentRoutes)
 app.use('/api/posts', postRoutes)
 
@@ -53,6 +51,6 @@ const PORT = process.env.PORT || 5002
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected')
-    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`))
+    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
   })
   .catch(err => { console.error('❌ MongoDB connection failed:', err); process.exit(1) })

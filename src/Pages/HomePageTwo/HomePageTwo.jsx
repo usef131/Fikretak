@@ -59,6 +59,8 @@ export default function HomePageTwo() {
               background: '#fefce8',
               borderBottom: '1px solid #fde68a',
               padding: '12px 0',
+              marginTop:'-85px',
+              marginBottom: '50px',
             }}>
               <Container className="d-flex align-items-center justify-content-between flex-wrap" style={{ gap: 10 }}>
                 <div className="d-flex align-items-center" style={{ gap: 10 }}>

@@ -9,7 +9,7 @@ import SecondNavbar from '../../Components/Common/SecondNavbar'
 import CreatePost from '../createPost/createPost'
 import PostCard from '../../Components/Cards/postCard'
 import { postService } from '../../../Services/postServices'
-import "../../../src/styles/profile.css";
+import './Profile.css';
 
 
 export default function Profile() {
@@ -48,58 +48,38 @@ export default function Profile() {
     <>
       <SecondNavbar />
 
-      <div style={{ background: 'var(--fk-bg)', minHeight: '100vh' }}>
-        <Container style={{ paddingTop: '2rem', paddingBottom: '2rem', width: '50%' }}>
+      <div className="profile-page">
+        <Container className="profile-container">
 
           {/* ── Profile Card ── */}
-          <div className="fk-card p-4 mb-4" style={{ position: 'relative' }}>
-            <div style={{ height: 80, borderRadius: 'var(--radius-md) var(--radius-md) 0 0', margin: '-1rem -1rem 0' }} />
+          <div className="fk-card p-4 mb-4 profile-card">
+            <div className="profile-card-banner"/>
 
-            <div style={{ marginTop: '-40px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-              <div className="fk-avatar" style={{ width: 120, height: 120, fontSize: '3rem', border: '4px solid var(--fk-surface)' }}>
+            <div className="profile-card-header">
+              <div className="fk-avatar profile-avatar">
                 {initials}
               </div>
-              <div style={{ paddingBottom: 4 }}>
-                <button
-                  onClick={() => navigate('/edit-profile')}
-                  style={{
-                    padding: '6px 16px',
-                    borderRadius: 'var(--radius-pill)',
-                    border: '1.5px solid var(--fk-border)',
-                    background: 'var(--fk-surface)',
-                    fontWeight: 600,
-                    fontSize: '0.82rem',
-                    cursor: 'pointer',
-                  }}
-                >
+              <div className="profile-header-actions">
+                <button onClick={() => navigate('/edit-profile')} className="edit-profile-btn">
                   <i className="bi bi-gear" /> Edit Profile
                 </button>
               </div>
             </div>
 
-            <div style={{ paddingBottom: 4 }}>
+            <div className="profile-body">
               {/* Name */}
-              <h1 style={{ fontWeight: 800, fontSize: '1.25rem', marginLeft: '1rem', marginBottom: '0.25rem', marginTop: '0.5rem', color: 'var(--fk-text-primary)' }}>
+              <h1 className="profile-name">
                 {user?.name}
               </h1>
 
               {/* Role badge */}
-              <span style={{
-                marginLeft: '1rem',
-                display: 'inline-block',
-                padding: '2px 10px',
-                borderRadius: 'var(--radius-pill)',
-                fontSize: '0.72rem', fontWeight: 600,
-                background: user?.role === 'investor' ? '#fef3c7' : '#eef0ff',
-                color: user?.role === 'investor' ? '#92400e' : 'var(--fk-primary-btn)',
-                textTransform: 'capitalize',
-              }}>
+              <span className={`profile-role-badge ${user?.role === 'investor' ? 'profile-role-badge--investor' : 'profile-role-badge--entrepreneur'}`}>
                 {user?.role}
               </span>
 
               {/* Location */}
               {user?.location && (
-                <span style={{ marginLeft: 10, fontSize: '0.78rem', color: 'var(--fk-text-muted)' }}>
+                <span className="profile-location">
                   <i className="bi bi-geo-alt" /> {user.location}
                 </span>
               )}
@@ -108,7 +88,7 @@ export default function Profile() {
 
               {/* Bio */}
               {user?.bio && (
-                <span style={{ marginLeft: '1rem', fontWeight: 500, fontSize: '1rem', color: 'var(--fk-text-primary)', display: 'inline-block', marginTop: '0.5rem' }}>
+                <span className="profile-bio">
                   {user.bio}
                 </span>
               )}
@@ -117,28 +97,21 @@ export default function Profile() {
               {user?.role === 'investor' && (
                 <>
                   {user?.sectors?.length > 0 && (
-                    <div style={{ marginLeft: '1rem', marginTop: '0.75rem', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    <div className="profile-sectors">
                       {user.sectors.map(s => (
-                        <span key={s} style={{
-                          fontSize: '0.72rem', fontWeight: 600,
-                          padding: '3px 10px',
-                          borderRadius: 'var(--radius-pill)',
-                          border: '1px solid var(--fk-border)',
-                          color: 'var(--fk-text-muted)',
-                          background: 'var(--fk-bg)',
-                        }}>
+                        <span key={s} className="profile-sector-chip">
                           {s}
                         </span>
                       ))}
                     </div>
                   )}
                   {user?.ticketSize && (
-                    <p style={{ marginLeft: '1rem', marginTop: '0.5rem', fontSize: '0.82rem', color: 'var(--fk-text-muted)' }}>
-                      <i className="bi bi-cash-coin" /> Ticket size: <strong style={{ color: 'var(--fk-text-primary)' }}>{user.ticketSize}</strong>
+                    <p className="profile-meta-line">
+                      <i className="bi bi-cash-coin" /> Ticket size: <strong className="profile-meta-strong">{user.ticketSize}</strong>
                     </p>
                   )}
                   {user?.experience && (
-                    <p style={{ marginLeft: '1rem', marginTop: '0.25rem', fontSize: '0.82rem', color: 'var(--fk-text-muted)' }}>
+                    <p  className="profile-meta-line--tight">
                       <i className="bi bi-briefcase" /> {user.experience}
                     </p>
                   )}
@@ -149,27 +122,19 @@ export default function Profile() {
               {user?.role === 'entrepreneur' && (
                 <>
                   {user?.startup && (
-                    <p style={{ marginLeft: '1rem', marginTop: '0.5rem', fontSize: '0.82rem', color: 'var(--fk-text-muted)' }}>
+                    <p className="profile-meta-line">
                       <i className="bi bi-rocket" /> {user.startup}
                       {user?.stage && (
-                        <span style={{
-                          marginLeft: 8,
-                          padding: '1px 8px',
-                          borderRadius: 'var(--radius-pill)',
-                          fontSize: '0.72rem', fontWeight: 600,
-                          background: '#eef0ff',
-                          color: 'var(--fk-primary-btn)',
-                          textTransform: 'capitalize',
-                        }}>
+                        <span className="profile-stage-badge">
                           {user.stage}
                         </span>
                       )}
                     </p>
                   )}
                   {user?.website && (
-                    <p style={{ marginLeft: '1rem', marginTop: '0.25rem', fontSize: '0.82rem', color: 'var(--fk-text-muted)' }}>
+                    <p className="profile-meta-line">
                       <i className="bi bi-globe" />{' '}
-                      <a href={user.website} target="_blank" rel="noreferrer" style={{ color: 'var(--fk-primary-btn)' }}>
+                      <a href={user.website} target="_blank" rel="noreferrer" className="profile-website-link">
                         {user.website}
                       </a>
                     </p>
@@ -185,12 +150,7 @@ export default function Profile() {
       LinkedIn
     </span>
 
-    <a
-      href={user.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="profile-social-link"
-    >
+    <a href={user.linkedin} target="_blank" rel="noopener noreferrer" className="profile-social-link">
       View Profile
       <i className="bi bi-arrow-up-right"></i>
     </a>
@@ -201,38 +161,42 @@ export default function Profile() {
           </div>
 
           {/* ── Stats row ── */}
-          <div className="row justify-content-center gap-3 mb-4" style={{ fontSize: '0.875rem' }}>
+          <div className="row justify-content-center gap-3 mb-4 profile-stats-row">
             <div className="col text-center">
-              <div className="fk-card h-100 p-4 d-flex flex-column" style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--fk-text-primary)' }}>
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value" >
                 {user?.role === 'investor' ? interestedIdeas.length : myIdeas.length}
-                <div style={{ color: 'var(--fk-text-muted)', fontSize: '0.78rem' }}>
+                <div className="profile-stat-label">
                   {user?.role === 'investor' ? 'Interested' : 'Ideas'}
                 </div>
               </div>
             </div>
             <div className="col text-center">
-              <div className="fk-card h-100 p-4 d-flex flex-column" style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--fk-text-primary)' }}>
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value" >
                 0
-                <div style={{ color: 'var(--fk-text-muted)', fontSize: '0.78rem' }}>Followers</div>
+                <div className="profile-stat-label">
+                  Followers
+                </div>
               </div>
             </div>
             <div className="col text-center">
-              <div className="fk-card h-100 p-4 d-flex flex-column" style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--fk-text-primary)' }}>
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value" >
                 {posts.length}
-                <div style={{ color: 'var(--fk-text-muted)', fontSize: '0.78rem' }}>Posts</div>
+                <div className="profile-stat-label">
+                  Posts
+                </div>
               </div>
             </div>
           </div>
 
           {/* ── Tabs ── */}
-          <Tabs defaultActiveKey="ideas" className="mb-3" style={{ fontSize: '0.875rem', fontWeight: 600 }}>
+          <Tabs defaultActiveKey="ideas" className="mb-3 profile-tabs" >
 
             {user?.role === 'entrepreneur' && (
               <Tab eventKey="ideas" title={`My Ideas (${myIdeas.length})`}>
                 <div className="mt-3">
                   {myIdeasLoading ? (
                     <div className="text-center py-5">
-                      <Spinner animation="border" style={{ color: 'var(--fk-primary-btn)' }} />
+                      <Spinner animation="border" className="profile-spinner"/>
                     </div>
                   ) : myIdeas.length > 0 ? (
                     <Row className="g-3">
@@ -242,11 +206,10 @@ export default function Profile() {
                     </Row>
                   ) : (
                     <div className="text-center py-5">
-                      <i className="bi bi-lightbulb" style={{ fontSize: '2.5rem', color: 'var(--fk-border)' }} />
-                      <p className="mt-3" style={{ color: 'var(--fk-text-muted)', fontSize: '0.875rem' }}>
+                      <i className="bi bi-lightbulb profile-empty-icon" />
+                      <p className="mt-3 profile-empty-text">
                         You haven't submitted any ideas yet.{' '}
-                        <span style={{ color: 'var(--fk-primary-btn)', cursor: 'pointer', fontWeight: 600 }}
-                          onClick={() => navigate('/create-idea')}>
+                        <span className="profile-empty-link" onClick={() => navigate('/create-idea')}>
                           Submit one now
                         </span>
                       </p>
@@ -281,8 +244,8 @@ export default function Profile() {
                     </Row>
                   ) : (
                     <div className="text-center py-5">
-                      <i className="bi bi-heart" style={{ fontSize: '2.5rem', color: 'var(--fk-border)' }} />
-                      <p className="mt-3" style={{ color: 'var(--fk-text-muted)', fontSize: '0.875rem' }}>
+                      <i className="bi bi-heart profile-empty-icon" />
+                      <p className="mt-3 profile-empty-text">
                         You haven't expressed interest in any ideas yet.{' '}
                         <span style={{ color: 'var(--fk-primary-btn)', cursor: 'pointer', fontWeight: 600 }}
                           onClick={() => navigate('/Browse-projects')}>

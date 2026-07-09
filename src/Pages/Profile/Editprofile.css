@@ -1,0 +1,118 @@
+.edit-profile-page {
+  background: var(--fk-bg);
+  min-height: 100vh ;
+}
+
+.edit-profile-container {
+  padding-top: 2rem  ;
+  padding-bottom: 2rem ;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--fk-text-muted);
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  padding: 0;
+}
+
+.edit-profile-title {
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--fk-text-primary);
+}
+
+.edit-profile-alert {
+  font-size: 0.875rem;
+}
+
+.section-label {
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--fk-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.field-input {
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.field-input--textarea {
+  resize: vertical;
+}
+
+.field-input--disabled {
+  background: var(--fk-bg);
+}
+
+.field-hint {
+  font-size: 0.78rem;
+  color: var(--fk-text-muted);
+  margin-left: 0.5rem;
+}
+
+.field-hint--no-indent {
+  font-size: 0.78rem;
+  color: var(--fk-text-muted);
+}
+
+.section-divider {
+  border-color: var(--fk-border);
+  margin: 1.5rem 0;
+}
+
+.sector-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.sector-pill {
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--fk-surface);
+  border-color: var(--fk-border);
+  color: var(--fk-text-muted);
+}
+
+.sector-pill--active {
+  background: #EEEDFE;
+  border-color: #AFA9EC;
+  color: #3C3489;
+}
+
+.stage-option {
+  text-transform: capitalize;
+}
+
+.form-actions {
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-btn {
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  padding: 8px 24px;
+}

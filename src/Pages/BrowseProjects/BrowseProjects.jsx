@@ -7,6 +7,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FiHome } from 'react-icons/fi'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
 import { useAuth } from '../../../Context/AuthContext'
+import './BrowseProjects.css'
 const CATEGORIES = ['All', 'Tech', 'Health', 'Education', 'Finance', 'Environment', 'Social']
 
 export default function BrowseProjects() {
@@ -47,31 +48,21 @@ export default function BrowseProjects() {
     return (
 
 
-        <div style={{ minHeight: '100vh', background: 'var(--fk-bg)' }}>
-
+        <div className="browse-projects-page">
             {/* navbar */}
             <SecondNavbar />
 
-            <Container style={{ paddingTop: '1.75rem', paddingBottom: '3rem' }}>
-                {/* Search + Filter bar */}
+            <Container className="browse-projects-container">
+                    {/* Search + Filter bar */}
                 <div className="d-flex align-items-center gap-3 flex-wrap mb-4">
                     {/* Search */}
-                    <form onSubmit={handleSearch} style={{ flex: '1 1 300px', position: 'relative', maxWidth: 520 }}>
-                        <i className="bi bi-search" style={{
-                            position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
-                            color: 'var(--fk-text-muted)', fontSize: '0.9rem',
-                        }} />
+                    <form onSubmit={handleSearch} className="browse-search-form">
+                        <i className="bi bi-search browse-search-icon" />
                         <Form.Control
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                             placeholder="Search projects, categories..."
-                            style={{
-                                borderRadius: 'var(--radius-pill)',
-                                paddingLeft: 38,
-                                paddingRight: 12,
-                                fontSize: '0.875rem',
-                                border: '1.5px solid var(--fk-border)',
-                            }}
+                            className="browse-search-input"
                         />
                     </form>
 
@@ -80,14 +71,10 @@ export default function BrowseProjects() {
 
                     {/* Sort / Filters */}
                     <Dropdown>
-                        <Dropdown.Toggle
-                            variant="outline-secondary"
-                            size="sm"
-                            style={{ borderRadius: 'var(--radius-pill)', fontWeight: 600, fontSize: '0.85rem' }}
-                        >
+                        <Dropdown.Toggle variant="outline-secondary" size="sm"className="browse-filter-toggle">
                             <i className="bi bi-funnel me-1" />Filters
                         </Dropdown.Toggle>
-                        <Dropdown.Menu style={{ borderRadius: 'var(--radius-md)', fontSize: '0.875rem' }}>
+                        <Dropdown.Menu className="browse-filter-menu">
                             <Dropdown.Item onClick={() => setSort('newest')}>Newest First</Dropdown.Item>
                             <Dropdown.Item onClick={() => setSort('most_interest')}>Most Interest</Dropdown.Item>
                             <Dropdown.Item onClick={() => setSort('most_viewed')}>Most Viewed</Dropdown.Item>
@@ -101,8 +88,7 @@ export default function BrowseProjects() {
                     {
                         currentUser?.role === "entrepreneur" &&
                         (
-                            <Link to="/create-idea" className="btn btn-primary ms-auto"
-                                style={{ borderRadius: 'var(--radius-pill)', fontWeight: 600, padding: '8px 20px' }}>
+                            <Link to="/create-idea" className="btn btn-primary ms-auto browse-add-project-btn">
                                 <i className="bi bi-plus me-1" />Add Your Project
                             </Link>
                         )
@@ -114,11 +100,7 @@ export default function BrowseProjects() {
                 {/* Category Tabs (pill row) — optional, hidden on mobile can be scrollable */}
                 <div className="d-flex flex-wrap gap-2 mb-4">
                     {CATEGORIES.map(cat => (
-                        <button
-                            key={cat}
-                            onClick={() => { setCategory(cat); setPage(1) }}
-                            className={`fk-cat-pill ${category === cat ? 'active' : ''}`}
-                        >
+                        <button key={cat} onClick={() => { setCategory(cat); setPage(1) }} className={`fk-cat-pill ${category === cat ? 'active' : ''}`}>
                             {cat}
                         </button>
                     ))}
@@ -127,12 +109,12 @@ export default function BrowseProjects() {
                 {/* Results */}
                 {loading ? (
                     <div className="text-center py-5">
-                        <Spinner animation="border" style={{ color: 'var(--fk-primary-btn)', width: 36, height: 36 }} />
-                        <p className="mt-3" style={{ color: 'var(--fk-text-muted)', fontSize: '0.875rem' }}>Loading projects…</p>
+                        <Spinner animation="border" className="browse-loading-spinner" />
+                        <p className="mt-3 browse-loading-text">Loading projects…</p>
                     </div>
                 ) : ideas.length > 0 ? (
                     <>
-                        <p style={{ fontSize: '0.8rem', color: 'var(--fk-text-muted)', marginBottom: '1rem' }}>
+                        <p className="browse-results-count">
                             Showing {ideas.length} of {pagination.total} projects
                         </p>
                         <Row className="g-3">
@@ -145,33 +127,15 @@ export default function BrowseProjects() {
 
                         {pagination.pages > 1 && (
                             <div className="d-flex justify-content-center gap-2 mt-5">
-                                <Button
-                                    variant="outline-secondary"
-                                    size="sm"
-                                    disabled={page <= 1}
-                                    onClick={() => setPage(p => p - 1)}
-                                    style={{ borderRadius: 'var(--radius-pill)', width: 36, height: 36, padding: 0 }}
-                                >
+                                <Button variant="outline-secondary" size="sm" disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="browse-pagination-btn">
                                     <i className="bi bi-chevron-left" />
                                 </Button>
                                 {Array.from({ length: pagination.pages }, (_, i) => i + 1).map(p => (
-                                    <Button
-                                        key={p}
-                                        size="sm"
-                                        variant={p === page ? 'primary' : 'outline-secondary'}
-                                        onClick={() => setPage(p)}
-                                        style={{ borderRadius: 'var(--radius-pill)', minWidth: 36, height: 36, padding: 0, fontWeight: 600 }}
-                                    >
+                                    <Button key={p} size="sm" variant={p === page ? 'primary' : 'outline-secondary'} onClick={() => setPage(p)} className="browse-pagination-number">
                                         {p}
                                     </Button>
                                 ))}
-                                <Button
-                                    variant="outline-secondary"
-                                    size="sm"
-                                    disabled={page >= pagination.pages}
-                                    onClick={() => setPage(p => p + 1)}
-                                    style={{ borderRadius: 'var(--radius-pill)', width: 36, height: 36, padding: 0 }}
-                                >
+                                <Button variant="outline-secondary" size="sm" disabled={page >= pagination.pages} onClick={() => setPage(p => p + 1)} className="browse-pagination-btn">
                                     <i className="bi bi-chevron-right" />
                                 </Button>
                             </div>
@@ -179,8 +143,8 @@ export default function BrowseProjects() {
                     </>
                 ) : (
                     <div className="text-center py-5">
-                        <i className="bi bi-search" style={{ fontSize: '2.5rem', color: 'var(--fk-border)' }} />
-                        <p className="mt-3 mb-0" style={{ color: 'var(--fk-text-muted)', fontSize: '0.875rem' }}>
+                        <i className="bi bi-search browse-empty-icon"/>
+                        <p className="mt-3 mb-0 browse-empty-text">
                             No projects found. Try adjusting your filters.
                         </p>
                     </div>

@@ -1,0 +1,91 @@
+.browse-projects-page {
+    min-height: 100vh;
+    background: var(--fk-bg);
+}
+ 
+.browse-projects-container {
+    padding-top: 1.75rem;
+    padding-bottom: 3rem;
+}
+ 
+.browse-search-form {
+    flex: 1 1 300px;
+    position: relative;
+    max-width: 520px;
+}
+ 
+.browse-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--fk-text-muted);
+    font-size: 0.9rem;
+}
+ 
+.browse-search-input {
+    border-radius: var(--radius-pill)!important;
+    padding-left: 38px !important;
+    padding-right: 12px !important;
+    font-size: 0.875rem !important;
+    border: 1.5px solid var(--fk-border) !important;
+}
+ 
+.browse-filter-toggle {
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+ 
+.browse-filter-menu {
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+}
+ 
+.browse-add-project-btn {
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    padding: 8px 20px;
+}
+ 
+.browse-loading-text {
+    color: var(--fk-text-muted);
+    font-size: 0.875rem;
+}
+ 
+.browse-loading-spinner {
+    color: var(--fk-primary-btn);
+    width: 36px;
+    height: 36px;
+}
+ 
+.browse-results-count {
+    font-size: 0.8rem;
+    color: var(--fk-text-muted);
+    margin-bottom: 1rem;
+}
+ 
+.browse-pagination-btn {
+    border-radius: var(--radius-pill);
+    width: 36px;
+    height: 36px;
+    padding: 0;
+}
+ 
+.browse-pagination-number {
+    border-radius: var(--radius-pill);
+    min-width: 36px;
+    height: 36px;
+    padding: 0;
+    font-weight: 600;
+}
+ 
+.browse-empty-icon {
+    font-size: 2.5rem;
+    color: var(--fk-border);
+}
+ 
+.browse-empty-text {
+    color: var(--fk-text-muted);
+    font-size: 0.875rem;
+}

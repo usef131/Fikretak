@@ -4,8 +4,8 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 
-import logo from "../../../src/assets/images/logo1.png";
-import "../../../src/styles/navbar.css";
+import logo from "../../assets/images/logo1.png";
+import "../../styles/navbar.css";
 
 
 function SecondNavbar() {

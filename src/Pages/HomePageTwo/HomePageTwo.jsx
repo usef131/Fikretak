@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button, Badge, Stack, Image, Table } from "react-bootstrap";
 import SecondNavbar from "../../Components/Common/SecondNavbar";
 import Footer from "../../Components/Common/Footer";
-import PageTransition from "../../Components/PageTransition";
+import PageTransition from "./PageTransition";
 import FeaturedStartupRow from "../../Components/Cards/FeaturedStartupRow";
 import "./HomeTwo.css";
 import PostCard from "../../Components/Cards/postCard";
@@ -39,8 +39,7 @@ export default function HomePageTwo() {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:5002/api/ideas")
-      .then(res => res.json())
+    api.get("/ideas")
       .then(data => {
         setStartups(data.ideas || data);
       });

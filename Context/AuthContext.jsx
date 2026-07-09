@@ -7,13 +7,27 @@ export function AuthProvider({ children }) {
   const [user, setUser]       = useState()
   const [loading, setLoading] = useState(true)
 
-  // Rehydrate from localStorage on mount
+  // Verify token with backend on mount instead of trusting localStorage blindly
   useEffect(() => {
-    const stored = localStorage.getItem('fk_user')
-    if (stored) {
-      try { setUser(JSON.parse(stored)) } catch { localStorage.removeItem('fk_user') }
+    const verify = async () => {
+      const token = localStorage.getItem('fk_token')
+      if (!token) {
+        setLoading(false)
+        return
+      }
+      try {
+        const data = await authService.getProfile() // response already unwrapped: { user }
+        setUser(data.user)
+        localStorage.setItem('fk_user', JSON.stringify(data.user))
+      } catch {
+        setUser(null)
+        localStorage.removeItem('fk_user')
+        localStorage.removeItem('fk_token')
+      } finally {
+        setLoading(false)
+      }
     }
-    setLoading(false)
+    verify()
   }, [])
 
   const login = async (email, password) => {

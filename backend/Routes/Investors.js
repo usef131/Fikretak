@@ -4,6 +4,6 @@ const router = express.Router();
 const { getInvestors , getUserById } = require("../controllers/userController");
 
 router.get("/investors", getInvestors);
-router.get("/:id", getUserById);  
+router.get("/investors/:id", getUserById);  
 
 module.exports = router;

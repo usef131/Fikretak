@@ -167,9 +167,9 @@ export default function IdeaDetails() {
                     disabled={actionLoading}
                   >
                     {actionLoading ? <Spinner size="sm" /> : interested ? (
-                      <><i className="bi bi-heart-fill" />Remove Interest</>
+                      <><i className="bi bi-heart-fill me-2" />Remove Interest</>
                     ) : (
-                      <><i className="bi bi-heart" />Express Interest</>
+                      <><i className="bi bi-heart me-2" />Express Interest</>
                     )}
                   </Button>
                 )}

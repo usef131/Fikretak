@@ -1,0 +1,26 @@
+.fk-footer-brand {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.fk-footer-tagline {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 400px;
+}
+
+.fk-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fk-footer-copyright {
+  font-size: 0.8rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}

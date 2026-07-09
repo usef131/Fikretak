@@ -179,24 +179,24 @@ export default function Profile() {
 
               {/* LinkedIn — both roles */}
               {user?.linkedin && (
-  <div className="profile-social">
-    <span className="profile-social-label">
-      <i className="bi bi-linkedin"></i>
-      LinkedIn
-    </span>
+                <div className="profile-social">
+                  <span className="profile-social-label">
+                    <i className="bi bi-linkedin"></i>
+                    LinkedIn
+                  </span>
 
-    <a
-      href={user.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="profile-social-link"
-    >
-      View Profile
-      <i className="bi bi-arrow-up-right"></i>
-    </a>
-  </div>
-)}
-              
+                  <a
+                    href={user.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="profile-social-link"
+                  >
+                    View Profile
+                    <i className="bi bi-arrow-up-right"></i>
+                  </a>
+                </div>
+              )}
+
             </div>
           </div>
 
@@ -255,7 +255,7 @@ export default function Profile() {
                 </div>
               </Tab>
             )}
-          
+
             {/* Posts tab */}
             <Tab eventKey="posts" title={`Posts (${posts.length})`}>
               <div className="mt-3">

@@ -1,0 +1,224 @@
+
+.idea-details-page {
+  background: #f8f9fc;
+  min-height: 100vh;
+}
+
+.idea-details-container {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.idea-loading-wrapper {
+  min-height: 60vh;
+}
+
+.idea-loading-spinner {
+  color: #3151b5;
+  width: 40px;
+  height: 40px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #667085;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+}
+
+/* Header */
+.idea-header {
+  margin-bottom: 1.5rem;
+}
+
+.idea-category-badge {
+  background: #eef0ff;
+  padding: 5px 14px;
+  border-radius: 20px;
+  color: #3151b5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.idea-title {
+  font-weight: 800;
+  font-size: 2rem;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.idea-meta {
+  color: #667085;
+  font-size: 0.875rem;
+}
+
+/* Image */
+.idea-image-wrapper {
+  height: 330px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.idea-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Generic card sections */
+.section-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-text {
+  color: #667085;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Funding card */
+.funding-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.funding-title {
+  font-weight: 700;
+  margin: 0;
+}
+
+.funding-pct {
+  font-weight: 700;
+  color: #3151b5;
+}
+
+.funding-goal-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.funding-raised-goal-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #667085;
+}
+
+.funding-progress-track {
+  background: #e5e7eb;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.funding-progress-fill {
+  height: 100%;
+  background: #3151b5;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+
+.btn-interest,
+.btn-signin {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 14px;
+  font-weight: 700;
+  background: #1a3a6b;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-invest {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 14px;
+  font-weight: 700;
+  background: #B8922A;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.creator-label {
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #667085;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.creator-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1a3a6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.creator-name {
+  font-weight: 700;
+}
+
+.creator-role {
+  font-size: 0.78rem;
+  color: #667085;
+}
+
+
+.roadmap-card {
+  padding: 3rem;
+}
+
+.roadmap-title {
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+}
+
+.roadmap-item {
+  border-left: 3px solid #3151b5;
+  padding: 20px;
+}
+
+.roadmap-period {
+  color: #3151b5;
+  font-weight: 700;
+}
+
+.roadmap-item-title {
+  font-weight: 700;
+}
+
+.roadmap-desc {
+  color: #667085;
+  font-size: 0.875rem;
+  margin: 0;
+}

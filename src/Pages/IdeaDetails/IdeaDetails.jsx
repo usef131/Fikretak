@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Alert, Spinner } from 'react-bootstrap'
 import { ideaService } from '../../../Services/ideaService'
 import { useAuth } from '../../../Context/AuthContext'
 import InvestModal from '../../Components/Invest/Investmodal'
+import './IdeaDetails.css'
 
 export default function IdeaDetails() {
   const { id } = useParams()
@@ -17,6 +18,7 @@ export default function IdeaDetails() {
   const [actionLoading, setActionLoading] = useState(false)
 
   const [showInvest, setShowInvest] = useState(false)
+
   useEffect(() => {
     setLoading(true)
     ideaService.getIdeaById(id)
@@ -54,8 +56,8 @@ export default function IdeaDetails() {
   }
 
   if (loading) return (
-    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '60vh' }}>
-      <Spinner animation="border" style={{ color: '#3151b5', width: 40, height: 40 }} />
+    <div className="d-flex align-items-center justify-content-center idea-loading-wrapper">
+      <Spinner animation="border" className="idea-loading-spinner" />
     </div>
   )
 
@@ -70,38 +72,27 @@ export default function IdeaDetails() {
     : idea.fundingProgress || 0
 
   return (
-    <div style={{ background: '#f8f9fc', minHeight: '100vh' }}>
-      <Container style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+    <div className="idea-details-page">
+      <Container className="idea-details-container">
 
         {/* Back */}
-        <button
-          onClick={() => navigate('/browse-projects')}
-          style={{
-            background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-            color: '#667085', fontSize: '0.875rem',
-            display: 'flex', alignItems: 'center', gap: 6, marginBottom: '1.5rem',
-          }}
-        >
+        <button className="back-btn" onClick={() => navigate('/browse-projects')}>
           ← Back to Projects
         </button>
 
         {/* Header */}
-        <div className="mb-4">
+        <div className="idea-header">
           <div className="d-flex gap-2 mb-2">
-            <span style={{
-              background: '#eef0ff', padding: '5px 14px',
-              borderRadius: '20px', color: '#3151b5', fontSize: '13px', fontWeight: 600,
-            }}>
+            <span className="idea-category-badge">
               {idea.category}
             </span>
-            
           </div>
 
-          <h1 style={{ fontWeight: 800, fontSize: '2rem', marginTop: '12px', marginBottom: '8px' }}>
+          <h1 className="idea-title">
             {idea.title}
           </h1>
 
-          <div style={{ color: '#667085', fontSize: '0.875rem' }}>
+          <div className="idea-meta">
             <i className="bi bi-eye me-1" />{idea.views || 0} views &nbsp;•&nbsp;
             <i className="bi bi-heart me-1" />{idea.interestCount || 0} interested &nbsp;•&nbsp;
             <i className="bi bi-calendar3 me-1" />
@@ -115,35 +106,30 @@ export default function IdeaDetails() {
           <Col lg={8}>
 
             {/* Image */}
-            <div style={{
-              height: '330px', borderRadius: '15px',
-              overflow: 'hidden', marginBottom: '20px',
-            }}>
+            <div className="idea-image-wrapper">
               <img
                 src={idea.image || 'https://images.unsplash.com/photo-1497366754035-f200968a6e72'}
                 alt={idea.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
 
             {/* Mission */}
             <div className="fk-card p-4 mb-3">
-              <h3 style={{ fontWeight: 700, fontSize: '1.2rem', marginBottom: '0.75rem' }}>
+              <h3 className="section-title">
                 Project Mission
               </h3>
-              <p style={{ color: '#667085', lineHeight: 1.8, margin: 0 }}>
+              <p className="section-text">
                 {idea.mission || idea.description || idea.summary}
               </p>
             </div>
 
-
             {/* Target Market */}
             {idea.targetMarket && (
               <div className="fk-card p-4">
-                <h3 style={{ fontWeight: 700, fontSize: '1.2rem', marginBottom: '0.75rem' }}>
+                <h3 className="section-title">
                   Target Market
                 </h3>
-                <p style={{ color: '#667085', lineHeight: 1.8, margin: 0 }}>
+                <p className="section-text">
                   {idea.targetMarket}
                 </p>
               </div>
@@ -156,38 +142,29 @@ export default function IdeaDetails() {
             {/* Funding Card */}
             {idea.fundingGoal && (
               <div className="fk-card p-4 mb-4">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <h4 style={{ fontWeight: 700, margin: 0 }}>Funding</h4>
-                  <span style={{ fontWeight: 700, color: '#3151b5' }}>{fundingPct}%</span>
+                <div className="funding-card-header">
+                  <h4 className="funding-title">Funding</h4>
+                  <span className="funding-pct">{fundingPct}%</span>
                 </div>
 
-                <div style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+                <div className="funding-goal-amount">
                   ${Number(idea.fundingGoal).toLocaleString()}
                 </div>
 
-                <div className="d-flex justify-content-between mb-2" style={{ fontSize: '0.85rem', color: '#667085' }}>
+                <div className="funding-raised-goal-row">
                   <span>Raised: ${Number(idea.fundingRaised || 0).toLocaleString()}</span>
                   <span>Goal: ${Number(idea.fundingGoal).toLocaleString()}</span>
                 </div>
 
-                <div style={{ background: '#e5e7eb', borderRadius: '999px', height: 8, overflow: 'hidden' }}>
-                  <div style={{
-                    width: `${fundingPct}%`, height: '100%',
-                    background: '#3151b5', borderRadius: '999px',
-                    transition: 'width 0.4s ease',
-                  }} />
+                <div className="funding-progress-track">
+                  <div className="funding-progress-fill" style={{ width: `${fundingPct}%` }} />
                 </div>
 
                 {user?.role === 'investor' && (
                   <Button
+                    className="btn-interest"
                     onClick={handleInterest}
                     disabled={actionLoading}
-                    style={{
-                      marginTop: '20px', width: '100%',
-                      borderRadius: '8px', padding: '14px',
-                      fontWeight: 700, background: '#1a3a6b', border: 'none',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                    }}
                   >
                     {actionLoading ? <Spinner size="sm" /> : interested ? (
                       <><i className="bi bi-heart-fill" />Remove Interest</>
@@ -196,28 +173,15 @@ export default function IdeaDetails() {
                     )}
                   </Button>
                 )}
+
                 {user?.role === 'investor' && (
-                  <Button
-                    onClick={() => setShowInvest(true)}
-                    style={{
-                      marginTop: '10px', width: '100%',
-                      borderRadius: '8px', padding: '14px',
-                      fontWeight: 700, background: '#B8922A', border: 'none',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                    }}
-                  >
-                     Invest
+                  <Button className="btn-invest" onClick={() => setShowInvest(true)}>
+                    Invest
                   </Button>
                 )}
+
                 {!user && (
-                  <Button
-                    href="/login"
-                    style={{
-                      marginTop: '20px', width: '100%',
-                      borderRadius: '8px', padding: '14px',
-                      fontWeight: 700, background: '#1a3a6b', border: 'none',
-                    }}
-                  >
+                  <Button className="btn-signin" href="/login">
                     Sign in to invest
                   </Button>
                 )}
@@ -226,24 +190,16 @@ export default function IdeaDetails() {
 
             {/* Idea Creator */}
             <div className="fk-card p-4">
-              <h6 style={{
-                fontWeight: 700, fontSize: '0.75rem', color: '#667085',
-                textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1rem',
-              }}>
+              <h6 className="creator-label">
                 Idea Creator
               </h6>
               <div className="d-flex align-items-center gap-3">
-                <div style={{
-                  width: 48, height: 48, borderRadius: '50%',
-                  background: '#1a3a6b', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 700, color: '#fff', fontSize: '1rem',
-                }}>
+                <div className="creator-avatar">
                   {idea.entrepreneur?.name?.[0] || '?'}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700 }}>{idea.entrepreneur?.name || 'Anonymous'}</div>
-                  <div style={{ fontSize: '0.78rem', color: '#667085' }}>Entrepreneur</div>
+                  <div className="creator-name">{idea.entrepreneur?.name || 'Anonymous'}</div>
+                  <div className="creator-role">Entrepreneur</div>
                 </div>
               </div>
             </div>
@@ -251,73 +207,34 @@ export default function IdeaDetails() {
           </Col>
         </Row>
 
-
         {/* Roadmap */}
-<div className="fk-card p-5 mt-4">
+        <div className="fk-card roadmap-card mt-4">
 
-  <h2 
-    style={{ 
-      textAlign: 'center', 
-      fontWeight: 800, 
-      marginBottom: '2.5rem' 
-    }}
-  >
-    Project Roadmap
-  </h2>
+          <h2 className="roadmap-title">
+            Project Roadmap
+          </h2>
 
+          <Row>
+            {idea.roadmap.map((item, i) => (
+              <Col key={i}>
+                <div className="roadmap-item">
+                  <h6 className="roadmap-period">
+                    {item.period}
+                  </h6>
 
-  <Row>
+                  <h5 className="roadmap-item-title">
+                    {item.title}
+                  </h5>
 
-    {idea.roadmap.map((item, i) => (
-
-      <Col key={i}>
-
-        <div 
-          style={{ 
-            borderLeft: '3px solid #3151b5', 
-            padding: '20px' 
-          }}
-        >
-
-          <h6 
-            style={{ 
-              color: '#3151b5', 
-              fontWeight: 700 
-            }}
-          >
-            {item.period}
-          </h6>
-
-
-          <h5 
-            style={{ 
-              fontWeight: 700 
-            }}
-          >
-            {item.title}
-          </h5>
-
-
-          <p 
-            style={{ 
-              color: '#667085', 
-              fontSize: '0.875rem', 
-              margin: 0 
-            }}
-          >
-            {item.desc}
-          </p>
-
+                  <p className="roadmap-desc">
+                    {item.desc}
+                  </p>
+                </div>
+              </Col>
+            ))}
+          </Row>
 
         </div>
-
-      </Col>
-
-    ))}
-
-  </Row>
-
-</div>
 
       </Container>
       <InvestModal show={showInvest} onHide={() => setShowInvest(false)} idea={idea} />

@@ -1,7 +1,6 @@
-import { Routes, Route, Navigate , useLocation} from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../Context/AuthContext'
 
-import MainLayout from '../src/Components/Layout/MainLayout'
 import CreatePost from '../src/Pages/createPost/createPost'
 import Home from '../src/Pages/Home/Home'
 import IdeaDetails from '../src/Pages/IdeaDetails/IdeaDetails'
@@ -17,8 +16,8 @@ import EditProfile from '../src/Pages/Profile/Editprofile'
 import InvestorPage from '../src/Pages/InvestorPage/InvestorPage'
 import { AnimatePresence, motion } from "framer-motion";
 import ViewProfile from '../src/Pages/InvestorPage/ViewProfile'
-import EditIdea from '../src/Pages/EditIdea/EditIdea' 
- 
+import EditIdea from '../src/Pages/EditIdea/EditIdea'
+
 function PrivateRoute({ children, roles }) {
   const { user, loading } = useAuth()
   if (loading) return null
@@ -40,6 +39,7 @@ export default function AppRoutes() {
         transition={{ duration: 0.1 }}
       >
         <Routes location={location}>
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
@@ -63,8 +63,8 @@ export default function AppRoutes() {
               </PrivateRoute>
             }
           />
-      
-         <Route path='ViewProfile/:id' element={<ViewProfile />} />
+
+          <Route path='ViewProfile/:id' element={<ViewProfile />} />
 
 
           <Route
@@ -73,16 +73,15 @@ export default function AppRoutes() {
           />
 
           <Route
-          path="/create-post"
-          element={<CreatePost />}
+            path="/create-post"
+            element={<CreatePost />}
           />
 
-          
 
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+
+
         </Routes>
       </motion.div>
     </AnimatePresence>

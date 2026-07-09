@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card,Button,Badge,Stack, Image , Table } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Badge, Stack, Image, Table } from "react-bootstrap";
 import SecondNavbar from "../../Components/Common/SecondNavbar";
 import Footer from "../../Components/Common/Footer";
 import PageTransition from "../../Components/PageTransition";
 import FeaturedStartupRow from "../../Components/Cards/FeaturedStartupRow";
 import "./HomeTwo.css";
 import PostCard from "../../Components/Cards/postCard";
-import {FaHeart,FaRegCommentDots, FaArrowRight} from "react-icons/fa";
+import { FaHeart, FaRegCommentDots, FaArrowRight } from "react-icons/fa";
 import { postService } from "../../../Services/postServices";
-
+import api from "../../../Services/api";
 
 const NAVY = "#0f2744";
 
@@ -30,8 +30,7 @@ export default function HomePageTwo() {
 
 
   useEffect(() => {
-    fetch('http://localhost:5002/api/posts')
-      .then(res => res.json())
+      api.get("/posts")
       .then(data => {
         console.log("posts from API:", data)
         setPosts(data.posts || data)
@@ -55,53 +54,53 @@ export default function HomePageTwo() {
       {/* HERO */}
       <section className="hero">
         <PageTransition>
-      {/* ── Profile completion banner ── */}
-      {user?.role === 'investor' && (!user?.bio || !user?.sectors?.length || !user?.ticketSize || !user?.location) && (
-        <div style={{
-          background: '#fefce8',
-          borderBottom: '1px solid #fde68a',
-          padding: '12px 0',
-          marginTop:'-85px',
-          marginBottom: '50px',
-        }}>
-          <Container className="d-flex align-items-center justify-content-between flex-wrap" style={{ gap: 10 }}>
-            <div className="d-flex align-items-center" style={{ gap: 10 }}>
-              <i className="bi bi-exclamation-circle-fill" style={{ color: '#d97706', fontSize: '1.1rem' }} />
-              <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#92400e' }}>
-                Complete your investor profile so entrepreneurs can find you
-              </span>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {!user?.bio && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Bio</span>}
-                {!user?.location && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Location</span>}
-                {!user?.ticketSize && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Ticket size</span>}
-                {!user?.sectors?.length && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Sectors</span>}
-              </div>
+          {/* ── Profile completion banner ── */}
+          {user?.role === 'investor' && (!user?.bio || !user?.sectors?.length || !user?.ticketSize || !user?.location) && (
+            <div style={{
+              background: '#fefce8',
+              borderBottom: '1px solid #fde68a',
+              padding: '12px 0',
+              marginTop:'-85px',
+              marginBottom: '50px',
+            }}>
+              <Container className="d-flex align-items-center justify-content-between flex-wrap" style={{ gap: 10 }}>
+                <div className="d-flex align-items-center" style={{ gap: 10 }}>
+                  <i className="bi bi-exclamation-circle-fill" style={{ color: '#d97706', fontSize: '1.1rem' }} />
+                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#92400e' }}>
+                    Complete your investor profile so entrepreneurs can find you
+                  </span>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                    {!user?.bio && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Bio</span>}
+                    {!user?.location && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Location</span>}
+                    {!user?.ticketSize && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Ticket size</span>}
+                    {!user?.sectors?.length && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Sectors</span>}
+                  </div>
+                </div>
+                <button
+                  onClick={() => navigate('/edit-profile')}
+                  style={{
+                    padding: '6px 16px',
+                    borderRadius: '20px',
+                    border: '1.5px solid #d97706',
+                    background: '#fff',
+                    color: '#92400e',
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Complete Profile →
+                </button>
+              </Container>
             </div>
-            <button
-              onClick={() => navigate('/edit-profile')}
-              style={{
-                padding: '6px 16px',
-                borderRadius: '20px',
-                border: '1.5px solid #d97706',
-                background: '#fff',
-                color: '#92400e',
-                fontWeight: 700,
-                fontSize: '0.82rem',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Complete Profile →
-            </button>
-          </Container>
-        </div>
-      )}
-     {/* HERO */}
+          )}
+          {/* HERO */}
           <Container>
             <Row className="justify-content-center text-center">
               <Col lg={10}>
 
-                <h1 className="hero-title">
+                <h1 className="hero-title ">
                   Welcome to <span>Fikretak</span>
                 </h1>
 
@@ -199,7 +198,7 @@ export default function HomePageTwo() {
 
       </Container>
 
-      
+
       {/* FEATURED */}
       <Container fluid className="px-5 mt-5 mb-5">
 
@@ -299,33 +298,33 @@ export default function HomePageTwo() {
       {/* ── Featured Startups ── */}
       <Container fluid className="px-5 my-5">
 
-    <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex justify-content-between align-items-center mb-4">
 
-        <div>
+          <div>
             <h2 className="fw-bold">
-                Featured Posts
+              Featured Posts
             </h2>
 
             <p className="text-muted mb-0">
-                Discover the latest ideas shared by entrepreneurs.
+              Discover the latest ideas shared by entrepreneurs.
             </p>
+          </div>
+
         </div>
 
-    </div>
+        <div className="d-flex flex-column gap-4">
+          {posts.map((post) => (
+            <PostCard
+              key={post._id}
+              post={post}
+              onDelete={(id) =>
+                setPosts(prev => prev.filter(p => p._id !== id))
+              }
+            />
+          ))}
+        </div>
 
-   <div className="d-flex flex-column gap-4">
-  {posts.map((post) => (
-    <PostCard
-      key={post._id}
-      post={post}
-      onDelete={(id) =>
-        setPosts(prev => prev.filter(p => p._id !== id))
-      }
-    />
-  ))}
-</div>
-
-</Container>
+      </Container>
 
       {/* CTA */}
       <section className="cta">
@@ -352,5 +351,5 @@ export default function HomePageTwo() {
       </section>
 
       <Footer />
-    </div> );
+    </div>);
 }

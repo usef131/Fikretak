@@ -5,18 +5,13 @@ const Idea     = require('../models/Idea')
 
 async function seed() {
   await mongoose.connect(process.env.MONGO_URI)
-  console.log('Connected to MongoDB')
 
   // Clear existing
   await User.deleteMany()
   await Idea.deleteMany()
 
   // Create users
-  const admin = await User.create({
-    name: 'Admin User', email: 'admin@fikretak.com',
-    password: 'admin123', role: 'admin',
-  })
-
+ 
   const entrepreneur = await User.create({
     name: 'Youssef Ahmed', email: 'youssef@example.com',
     password: 'password123', role: 'entrepreneur',
@@ -39,7 +34,6 @@ async function seed() {
       targetMarket: 'K-12 students in Egypt',
       fundingGoal: 75000,
       entrepreneur: entrepreneur._id,
-      status: 'approved',
       interestedInvestors: [investor._id],
       interestCount: 1,
       views: 42,
@@ -51,7 +45,6 @@ async function seed() {
       targetMarket: 'Farmers and food distributors in Egypt',
       fundingGoal: 50000,
       entrepreneur: entrepreneur._id,
-      status: 'approved',
       views: 28,
     },
     {
@@ -61,7 +54,6 @@ async function seed() {
       targetMarket: 'Elderly and their families in Cairo and Alexandria',
       fundingGoal: 40000,
       entrepreneur: entrepreneur._id,
-      status: 'pending',
     },
   ])
 }

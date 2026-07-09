@@ -1,4 +1,4 @@
-const jwt  = require('jsonwebtoken')
+const jwt  = require('jsonwebtoken') // imports jwt library for token verification
 const User = require('../models/User')
 
 // Verify JWT and attach user to req

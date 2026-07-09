@@ -7,13 +7,12 @@ exports.getIdeas = async (req, res) => {
       search,
       category,
       sort,
-      status = "approved",
       page = 1,
       limit = 9,
     } = req.query;
 
+
     const filter = {};
-    if (status) filter.status = status;
     if (category) filter.category = category;
     if (search) filter.$text = { $search: search };
 
@@ -85,7 +84,7 @@ exports.createIdea = async (req, res) => {
       targetMarket,
       fundingGoal,
       fundingRaised,
-      teamSize,
+      teamMembers,
       mission,
       impactScore,
       marketSize,
@@ -104,7 +103,7 @@ exports.createIdea = async (req, res) => {
       targetMarket,
       fundingGoal,
       fundingRaised,
-      teamSize,
+      teamMembers,
       image,
       mission,
       impactScore,
@@ -113,7 +112,6 @@ exports.createIdea = async (req, res) => {
       co2Saved,
       roadmap,
       entrepreneur: req.user._id,
-      status: "approved",
     });
     await idea.populate("entrepreneur", "name");
     res.status(201).json({ idea });
@@ -141,39 +139,15 @@ exports.updateIdea = async (req, res) => {
     if (idea.entrepreneur.toString() !== req.user._id.toString())
       return res.status(403).json({ message: 'Not authorized' })
 
-    const allowed = [
+     allowed = [
       'title', 'summary', 'description', 'category',
       'targetMarket', 'fundingGoal', 'image', 'teamMembers'
     ]
-    allowed.forEach(f => { if (req.body[f] !== undefined) idea[f] = req.body[f] })
+    allowed.forEach(field => { if (req.body[field] !== undefined) idea[field] = req.body[field] })
 
-    
-    if (req.body.teamMembers !== undefined) idea.teamSize = req.body.teamMembers
-
-   
-    if (req.body.roadmap !== undefined) {
-      idea.roadmap = req.body.roadmap
-      idea.markModified('roadmap')
-    }
 
     await idea.save()
     res.json({ idea })
-      return res.status(403).json({ message: "Not authorized" });
-
-     allowed = [
-      "title",
-      "summary",
-      "description",
-      "category",
-      "targetMarket",
-      "fundingGoal",
-    ];
-    allowed.forEach((f) => {
-      if (req.body[f] !== undefined) idea[f] = req.body[f];
-    });
-    // ⬅ no longer resets to 'pending' — edits stay approved/live immediately
-    await idea.save();
-    res.json({ idea });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -199,7 +173,7 @@ exports.expressInterest = async (req, res) => {
     const idea = await Idea.findById(req.params.id);
     if (!idea) return res.status(404).json({ message: "Idea not found" });
     if (idea.interestedInvestors.includes(req.user._id))
-      return res.status(400).json({ message: "Already expressed interest" });
+      return res.status(400).json({ message: "Already expressed interest" }); // Bad Request
 
     idea.interestedInvestors.push(req.user._id);
     await idea.save();

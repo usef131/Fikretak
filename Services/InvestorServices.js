@@ -1,11 +1,10 @@
-import api from './api'
+import api from "./api";
 
-export const investorService = {
-     //get all investors
-     getInvestors: (params) =>
-     api.get('/investors', { params }),
+const investorService = {
+  //get all investors
+  getInvestors: (params) => api.get("/users/investors", { params }),
 
-    getUserById: (id) =>
-        api.get(`/investors/${id}`)
+  getUserById: (id) => api.get(`/users/investors/${id}`),
+};
 
-}
+export default investorService;

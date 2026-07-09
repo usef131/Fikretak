@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Container, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { useAuth } from '../../../Context/AuthContext'
+import './Login.css'
 
 export default function Login() {
   const { login }  = useAuth()
@@ -37,76 +38,68 @@ export default function Login() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'var(--fk-bg)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '2rem 1rem',
-    }}>
-      <div style={{ width: '100%', maxWidth: 420 }}>
+    <div className="fk-login-page">
+      <div className="fk-login-box">
         {/* Brand */}
         <div className="text-center mb-5">
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <span style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--fk-text-primary)', letterSpacing: '-0.5px' }}>
+          <Link to="/" className="fk-login-brand-link">
+            <span className="fk-login-brand">
               Fikretak
             </span>
           </Link>
-          <h2 style={{ fontWeight: 700, fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
+          <h2 className="fk-login-title">
             Welcome back!
           </h2>
-          <p style={{ color: 'var(--fk-text-secondary)', fontSize: '0.875rem' }}>
+          <p className="fk-login-subtitle">
             Sign in to continue sharing ideas
           </p>
         </div>
 
         <div className="fk-card p-4">
           {apiError && (
-            <Alert variant="danger" dismissible onClose={() => setApiError('')} style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.875rem' }}>
+            <Alert variant="danger" dismissible onClose={() => setApiError('')} className="fk-login-alert">
               {apiError}
             </Alert>
           )}
 
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group className="mb-3">
-              <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.4rem' }}>Email</Form.Label>
+              <Form.Label className="fk-login-label">Email</Form.Label>
               <Form.Control
                 type="email"
                 value={form.email}
                 onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
                 placeholder="you@example.com"
                 isInvalid={!!errors.email}
-                style={{ borderRadius: 'var(--radius-sm)', padding: '0.65rem 1rem', fontSize: '0.9rem' }}
+                className="fk-login-input"
               />
               <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-2">
-              <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.4rem' }}>Password</Form.Label>
+              <Form.Label className="fk-login-label">Password</Form.Label>
               <Form.Control
                 type="password"
                 value={form.password}
                 onChange={e => setForm(p => ({ ...p, password: e.target.value }))}
                 placeholder="••••••••"
                 isInvalid={!!errors.password}
-                style={{ borderRadius: 'var(--radius-sm)', padding: '0.65rem 1rem', fontSize: '0.9rem' }}
+                className="fk-login-input"
               />
               <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
             </Form.Group>
 
             <div className="text-end mb-4">
-              <Link to="/forgot-password" style={{ fontSize: '0.82rem', color: 'var(--fk-primary-btn)', textDecoration: 'none', fontWeight: 500 }}>
+              <Link to="/forgot-password" className="fk-login-forgot-link">
                 Forgot password?
               </Link>
             </div>
 
             <Button
               type="submit"
-              className="w-100 btn-primary"
+              className="w-100 btn-primary fk-login-submitbtn"
               size="lg"
               disabled={loading}
-              style={{ borderRadius: 'var(--radius-pill)', fontWeight: 700, fontSize: '0.95rem', padding: '0.7rem' }}
             >
               {loading ? <Spinner size="sm" /> : 'Sign In'}
             </Button>
@@ -117,9 +110,9 @@ export default function Login() {
           
         </div>
 
-        <p className="text-center mt-4" style={{ fontSize: '0.875rem', color: 'var(--fk-text-secondary)' }}>
+        <p className="text-center mt-4 fk-login-footer-text">
           Don't have an account?{' '}
-          <Link to="/register" style={{ color: 'var(--fk-primary-btn)', fontWeight: 600, textDecoration: 'none' }}>
+          <Link to="/register" className="fk-login-signup-link">
             Sign Up
           </Link>
         </p>

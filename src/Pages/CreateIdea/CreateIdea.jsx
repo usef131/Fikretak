@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { ideaService } from '../../../Services/ideaService'
 import { useIdeas } from '../../../Context/IdeaContext'
+import './CreateIdea.css'
 
 const CATEGORIES = ['Tech', 'Health', 'Education', 'Finance', 'Environment', 'Social', 'Other']
 
@@ -60,7 +61,7 @@ export default function CreateIdea() {
 }
 
   const charCount = (field, max) => (
-    <small style={{ color: form[field].length > max ? 'var(--fk-danger)' : 'var(--fk-text-muted)', fontSize: '0.78rem' }}>
+    <small className={form[field].length > max ? 'fk-charcount fk-charcount-danger' : 'fk-charcount fk-charcount-muted'}>
       {form[field].length}/{max}
     </small>
   )
@@ -78,23 +79,23 @@ export default function CreateIdea() {
   ))
 
   return (
-    <div style={{ background: 'var(--fk-bg)', minHeight: '100vh' }}>
+    <div className="fk-createidea-page">
       {/* Page header */}
-      <div style={{ background: 'var(--fk-surface)', borderBottom: '1px solid var(--fk-border)', padding: '1.75rem 0 1rem' }}>
+      <div className="fk-createidea-header">
         <Container>
-          <h1 style={{ fontWeight: 800, fontSize: '1.5rem', marginBottom: '0.2rem' }} className='text-center'>Submit Your Idea</h1>
-          <p style={{ color: 'var(--fk-text-secondary)', fontSize: '0.875rem', margin: 0 }} className='text-center'>
+          <h1 className="fk-createidea-title text-center">Submit Your Idea</h1>
+          <p className="fk-createidea-subtitle text-center">
             Fill in the details below. Our team will review and approve it before it goes public.
           </p>
         </Container>
       </div>
 
-      <Container style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
+      <Container className="fk-createidea-container">
         <Row className="justify-content-center">
           <Col lg={8}>
             {apiError && (
               <Alert variant="danger" dismissible onClose={() => setApiError('')}
-                style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
+                className="fk-createidea-alert">
                 {apiError}
               </Alert>
             )}
@@ -104,7 +105,7 @@ export default function CreateIdea() {
                 {/* Title */}
                 <Form.Group className="mb-4">
                   <div className="d-flex justify-content-between align-items-center mb-1">
-                    <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem', margin: 0 }}>
+                    <Form.Label className="fk-createidea-label-nomargin">
                       Idea Title <span className="text-danger">*</span>
                     </Form.Label>
                     {charCount('title', 100)}
@@ -114,32 +115,29 @@ export default function CreateIdea() {
                     onChange={handleChange('title')}
                     placeholder="e.g. AI-Powered Agricultural Water Management"
                     isInvalid={!!errors.title}
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
+                    className="fk-createidea-input"
                   />
                   <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
                 </Form.Group>
-
                 {/* Category */}
                 <Form.Group className="mb-4">
-                  <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem' }}>
+                  <Form.Label className="fk-createidea-label">
                     Category <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Select
                     value={form.category}
                     onChange={handleChange('category')}
                     isInvalid={!!errors.category}
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
-                  >
+                    className="fk-createidea-input" >
                     <option value="">Select a category</option>
                     {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
                 </Form.Group>
-
                 {/* Summary */}
                 <Form.Group className="mb-4">
                   <div className="d-flex justify-content-between align-items-center mb-1">
-                    <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem', margin: 0 }}>
+                    <Form.Label className="fk-createidea-label-nomargin">
                       Short Summary <span className="text-danger">*</span>
                     </Form.Label>
                     {charCount('summary', 300)}
@@ -151,38 +149,32 @@ export default function CreateIdea() {
                     onChange={handleChange('summary')}
                     placeholder="A brief overview of your idea and the problem it solves"
                     isInvalid={!!errors.summary}
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem', resize: 'vertical' }}
-                  />
+                    className="fk-createidea-textarea"/>
                   <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>
                 </Form.Group>
-
                 {/* Description */}
                 <Form.Group className="mb-4">
-                  <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Full Description</Form.Label>
+                  <Form.Label className="fk-createidea-label">Full Description</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={6}
                     value={form.description}
                     onChange={handleChange('description')}
                     placeholder="Describe your idea in detail: the problem, your solution, how it works, business model…"
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem', resize: 'vertical' }}
-                  />
+                    className="fk-createidea-textarea"/>
                 </Form.Group>
-
                 {/* Target Market */}
                 <Form.Group className="mb-4">
-                  <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Target Market</Form.Label>
+                  <Form.Label className="fk-createidea-label">Target Market</Form.Label>
                   <Form.Control
                     value={form.targetMarket}
                     onChange={handleChange('targetMarket')}
                     placeholder="Who are your potential customers or users?"
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
-                  />
+                    className="fk-createidea-input"/>
                 </Form.Group>
-
                 {/* Team Members */}
                 <Form.Group className="mb-3">
-                  <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Team Members</Form.Label>
+                  <Form.Label className="fk-createidea-label">Team Members</Form.Label>
                   <Form.Control
                     type="number"
                     value={form.teamMembers}
@@ -190,14 +182,12 @@ export default function CreateIdea() {
                     placeholder="e.g. 3"
                     isInvalid={!!errors.teamMembers}
                     min={1}
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
-                  />
+                    className="fk-createidea-input"/>
                   <Form.Control.Feedback type="invalid">{errors.teamMembers}</Form.Control.Feedback>
                 </Form.Group>
-
                 {/* Funding Goal */}
                 <Form.Group className="mb-5">
-                  <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Funding Goal (USD)</Form.Label>
+                  <Form.Label className="fk-createidea-label">Funding Goal (USD)</Form.Label>
                   <Form.Control
                     type="number"
                     value={form.fundingGoal}
@@ -205,9 +195,8 @@ export default function CreateIdea() {
                     placeholder="e.g. 50000"
                     isInvalid={!!errors.fundingGoal}
                     min={0}
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
-                  />
-                  <Form.Text style={{ fontSize: '0.78rem', color: 'var(--fk-text-muted)' }}>
+                    className="fk-createidea-input"/>
+                  <Form.Text className="fk-createidea-hint">
                     Leave blank if not yet determined
                   </Form.Text>
                   <Form.Control.Feedback type="invalid">{errors.fundingGoal}</Form.Control.Feedback>
@@ -215,25 +204,23 @@ export default function CreateIdea() {
                 {/* Roadmap */}
                 <Form.Group className="mb-5">
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem', margin: 0 }}>
+                    <Form.Label className="fk-createidea-label-nomargin">
                       Project Roadmap
                     </Form.Label>
                     <button type="button" onClick={addRoadmapItem}
-                      style={{ background: '#1a3a6b', color: '#fff', border: 'none', borderRadius: 8, padding: '6px 14px', fontSize: '0.8rem', cursor: 'pointer' }}>
+                      className="fk-roadmap-addbtn">
                       + Add Phase
                     </button>
                   </div>
-
                   {roadmap.map((item, i) => (
-                    <div key={i} style={{ borderLeft: '3px solid #3151b5', padding: '16px', marginBottom: '12px', background: '#f8f9fc', borderRadius: '0 8px 8px 0' }}>
+                    <div key={i} className="fk-roadmap-item">
                       <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span style={{ fontWeight: 600, fontSize: '0.8rem', color: '#3151b5' }}>Phase {i + 1}</span>
+                        <span className="fk-roadmap-phase-label">Phase {i + 1}</span>
                         {roadmap.length > 1 && (
                           <button type="button" onClick={() => removeRoadmapItem(i)}
-                            style={{ background: 'none', border: 'none', color: '#dc2626', cursor: 'pointer', fontSize: '0.8rem' }}>
+                            className="fk-roadmap-removebtn">
                             ✕ Remove
-                          </button>
-                        )}
+                          </button>)}
                       </div>
                       <div className="row g-2">
                         <div className="col-4">
@@ -241,16 +228,14 @@ export default function CreateIdea() {
                             placeholder="Period (e.g. Q1 2025)"
                             value={item.period}
                             onChange={(e) => handleRoadmapChange(i, 'period', e.target.value)}
-                            style={{ fontSize: '0.875rem' }}
-                          />
+                            className="fk-roadmap-input"/>
                         </div>
                         <div className="col-8">
                           <Form.Control
                             placeholder="Phase title (e.g. MVP Launch)"
                             value={item.title}
                            onChange={(e) => handleRoadmapChange(i, 'title', e.target.value)}
-                            style={{ fontSize: '0.875rem' }}
-                          />
+                            className="fk-roadmap-input"/>
                         </div>
                         <div className="col-12">
                           <Form.Control
@@ -259,16 +244,14 @@ export default function CreateIdea() {
                             placeholder="Description of this phase..."
                             value={item.desc}
                            onChange={(e) => handleRoadmapChange(i, 'desc', e.target.value)}
-                            style={{ fontSize: '0.875rem', resize: 'none' }}
-                          />
+                            className="fk-roadmap-textarea"/>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    </div>))}
                 </Form.Group>
                  {/* Idea Image */}
                 <Form.Group className="mb-5">
-                  <Form.Label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Idea Image</Form.Label>
+                  <Form.Label className="fk-createidea-label">Idea Image</Form.Label>
                   <Form.Control
                     type="file"
                     accept="image/*"
@@ -280,13 +263,12 @@ export default function CreateIdea() {
                       reader.onloadend = () => setImageFile(reader.result) // Base64
                       reader.readAsDataURL(file)
                     }}
-                    style={{ borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
-                  />
+                    className="fk-createidea-input"/>
                   {preview && (
                     <img
                       src={preview}
                       alt="preview"
-                      style={{ marginTop: '0.75rem', width: '100%', maxHeight: 220, objectFit: 'cover', borderRadius: 'var(--radius-sm)' }}
+                      className="fk-createidea-preview"
                     />
                   )}
                 </Form.Group>
@@ -295,23 +277,17 @@ export default function CreateIdea() {
                     type="submit"
                     size="lg"
                     disabled={loading}
-                    className="btn-primary"
-                    style={{ borderRadius: 'var(--radius-pill)', fontWeight: 700, padding: '0.7rem 2rem' }}
-                  >
+                    className="btn-primary fk-createidea-submitbtn">
                     {loading ? <><Spinner size="sm" className="me-2" />Submitting…</> : 'Submit Idea'}
                   </Button>
-                  
-
                   <Button
                     variant="outline-secondary"
                     size="lg"
                     onClick={() => navigate('/Browse-Projects')}
                     disabled={loading}
-                    style={{ borderRadius: 'var(--radius-pill)', fontWeight: 600 }}
-                  >
+                    className="fk-createidea-cancelbtn">
                     Cancel
                   </Button>
-
                 </div>
               </Form>
             </div>

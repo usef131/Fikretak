@@ -72,7 +72,7 @@ export default function InvestorCard({ investor }) {
                 <div className="investor-card__actions">
                     <Button
                         className="investor-card__btn"
-                        onClick={() => navigate(`/ViewProfile/${investor._id}`)}
+                        onClick={() => navigate(`/view-profile/${investor._id}`)}
                     >
                         View profile
                     </Button>

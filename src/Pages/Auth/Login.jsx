@@ -5,19 +5,23 @@ import { useAuth } from '../../../Context/AuthContext'
 import '../../assets/styles/Login.css'
 
 export default function Login() {
-  const { login }  = useAuth()
-  const navigate   = useNavigate()
-  const location   = useLocation()
-  const from       = location.state?.from?.pathname || '/'
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
-  const [form, setForm]       = useState({ email: '', password: '' })
-  const [errors, setErrors]   = useState({})
+  // get information about the previous page to redirect after login
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
+
+  const [form, setForm] = useState({ email: '', password: '' })
+  const [errors, setErrors] = useState({})
   const [apiError, setApiError] = useState('')
   const [loading, setLoading] = useState(false)
 
+
+  // Validation function to check if the form fields are filled
   const validate = () => {
     const e = {}
-    if (!form.email)    e.email    = 'Email is required'
+    if (!form.email) e.email = 'Email is required'
     if (!form.password) e.password = 'Password is required'
     return e
   }
@@ -29,7 +33,8 @@ export default function Login() {
     setLoading(true); setApiError('')
     try {
       await login(form.email, form.password)
-      navigate("/home-two" , { replace: true })
+      // replace true because we don't want the user to go back to the login page after logging in
+      navigate("/home-two", { replace: true })
     } catch (e) {
       setApiError(e.message)
     } finally {
@@ -105,9 +110,9 @@ export default function Login() {
             </Button>
           </Form>
 
-       
 
-          
+
+
         </div>
 
         <p className="text-center mt-4 fk-login-footer-text">

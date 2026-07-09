@@ -1,28 +1,34 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useAuth } from '../Context/AuthContext'
 
-import CreatePost from '../src/Pages/createPost/createPost'
 import Home from '../src/Pages/Home/Home'
-import IdeaDetails from '../src/Pages/IdeaDetails/IdeaDetails'
-import CreateIdea from '../src/Pages/CreateIdea/CreateIdea'
-import Profile from '../src/Pages/Profile/Profile'
-import Login from '../src/Pages/Auth/Login'
-import Register from '../src/Pages/Auth/Register'
-import NotFound from '../src/Pages/NotFound/NotFound'
 import HomePageTwo from '../src/Pages/HomePageTwo/HomePageTwo'
 import Contact from '../src/Pages/contact/Contact'
-import BrowseProjects from '../src/Pages/BrowseProjects/BrowseProjects'
+import NotFound from '../src/Pages/NotFound/NotFound'
+
+import Login from '../src/Pages/Auth/Login'
+import Register from '../src/Pages/Auth/Register'
+
+import Profile from '../src/Pages/Profile/Profile'
 import EditProfile from '../src/Pages/Profile/Editprofile'
-import InvestorPage from '../src/Pages/InvestorPage/InvestorPage'
-import { AnimatePresence, motion } from "framer-motion";
-import ViewProfile from '../src/Pages/InvestorPage/ViewProfile'
+
+import CreatePost from '../src/Pages/createPost/createPost'
+import CreateIdea from '../src/Pages/CreateIdea/CreateIdea'
 import EditIdea from '../src/Pages/EditIdea/EditIdea'
+import IdeaDetails from '../src/Pages/IdeaDetails/IdeaDetails'
+import BrowseProjects from '../src/Pages/BrowseProjects/BrowseProjects'
+
+import InvestorPage from '../src/Pages/InvestorPage/InvestorPage'
+import ViewProfile from '../src/Pages/InvestorPage/ViewProfile'
 
 function PrivateRoute({ children, roles }) {
   const { user, loading } = useAuth()
+
   if (loading) return null
   if (!user) return <Navigate to="/login" replace />
   if (roles && !roles.includes(user.role)) return <Navigate to="/" replace />
+
   return children
 }
 
@@ -39,22 +45,27 @@ export default function AppRoutes() {
         transition={{ duration: 0.1 }}
       >
         <Routes location={location}>
+          {/* Public */}
+          <Route path="/" element={<Home />} />
+          <Route path="/home-two" element={<HomePageTwo />} />
+          <Route path="/contact" element={<Contact />} />
 
+          {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/Investor" element={<InvestorPage />} />
+          {/* Investor */}
+          <Route path="/investor" element={<InvestorPage />} />
+          <Route path="/view-profile/:id" element={<ViewProfile />} />
 
-          <Route path="/edit-idea/:id" element={<EditIdea />} />
-
-          <Route path="/contact" element={<Contact />} />
-
+          {/* Projects / Ideas */}
           <Route path="/browse-projects" element={<BrowseProjects />} />
           <Route path="/browse-projects/:id" element={<IdeaDetails />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/create-idea" element={<CreateIdea />} />
+          <Route path="/edit-idea/:id" element={<EditIdea />} />
+          <Route path="/create-post" element={<CreatePost />} />
 
-          <Route path="/home-two" element={<HomePageTwo />} />
-
+          {/* Profile (protected) */}
           <Route
             path="/profile"
             element={
@@ -63,25 +74,10 @@ export default function AppRoutes() {
               </PrivateRoute>
             }
           />
+          <Route path="/edit-profile" element={<EditProfile />} />
 
-          <Route path='ViewProfile/:id' element={<ViewProfile />} />
-
-
-          <Route
-            path="/create-idea"
-            element={<CreateIdea />}
-          />
-
-          <Route
-            path="/create-post"
-            element={<CreatePost />}
-          />
-
-
-          <Route path="/" element={<Home />} />
+          {/* Fallback */}
           <Route path="*" element={<NotFound />} />
-
-
         </Routes>
       </motion.div>
     </AnimatePresence>

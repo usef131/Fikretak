@@ -4,8 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../Context/AuthContext'
 import IdeaCard from '../../Components/cards/IdeaCard'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
-import axios from 'axios'
 import '../../assets/styles/ViewProfile.css'
+import investorService from '../../../Services/investorServices'
+
 
 export default function ViewProfile() {
     const { id } = useParams()
@@ -25,19 +26,19 @@ export default function ViewProfile() {
     const fetchProfile = async () => {
         try {
             setProfileLoading(true)
-            const res = await axios.get(`/api/users/${id}`)
-            const data = res.data.user || res.data
+            const res = await investorService.getUserById(id)
+            const data = res.user || res
             setProfile(data)
 
             if (data.role === 'investor') {
                 setIdeasLoading(true)
-                const ideasRes = await axios.get(`/api/ideas/interested-by/${id}`)
-                setIdeas(ideasRes.data.ideas || [])
+                const ideasRes = await investorService.getIdeasInterestedByUser(id)
+                setIdeas(ideasRes.ideas || [])
                 setIdeasLoading(false)
             } else if (data.role === 'entrepreneur') {
                 setIdeasLoading(true)
-                const ideasRes = await axios.get(`/api/ideas/by-user/${id}`)
-                setIdeas(ideasRes.data.ideas || [])
+                const ideasRes = await investorService.getIdeasByUser(id)
+                setIdeas(ideasRes.ideas || [])
                 setIdeasLoading(false)
             }
         } catch (err) {

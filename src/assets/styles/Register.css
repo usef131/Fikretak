@@ -1,0 +1,178 @@
+/* ── Page ── */
+.reg-page {
+    min-height: 100vh;
+    background: var(--fk-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.reg-inner {
+    width: 100%;
+}
+
+.reg-inner.step-1 { max-width: 420px; }
+.reg-inner.step-2 { max-width: 620px; }
+
+/* ── Brand ── */
+.reg-brand {
+    text-decoration: none;
+}
+
+.reg-brand-text {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--fk-text-primary);
+    letter-spacing: -0.5px;
+}
+
+/* ── Step 1 ── */
+.reg-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+
+.reg-subtitle {
+    color: var(--fk-text-secondary);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.reg-alert {
+    font-size: 0.875rem;
+    border-radius: var(--radius-sm);
+}
+
+.reg-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.reg-control {
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+}
+
+.reg-submit-btn {
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+}
+
+.reg-signin-text {
+    font-size: 0.875rem;
+    color: var(--fk-text-secondary);
+}
+
+.reg-signin-link {
+    color: var(--fk-primary-btn);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ── Step 2 ── */
+.reg-step-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--fk-border);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--fk-text-secondary);
+    margin-bottom: 1rem;
+}
+
+.reg-s2-title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0.35rem;
+}
+
+.reg-s2-sub {
+    color: var(--fk-text-secondary);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* ── Role Grid ── */
+.reg-role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.reg-role-btn {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--fk-border);
+    background: var(--fk-surface);
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.15s;
+}
+
+/* Active state applied via inline borderColor/background (dynamic per role color) */
+
+.reg-role-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.reg-role-icon.active {
+    color: #fff;
+}
+
+.reg-role-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--fk-text-primary);
+}
+
+.reg-role-sub {
+    font-size: 0.75rem;
+    color: var(--fk-text-muted);
+    line-height: 1.4;
+}
+
+/* ── Role Error ── */
+.reg-role-error {
+    color: var(--fk-danger);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* ── Step 2 Continue ── */
+.reg-continue-btn {
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    padding: 0.7rem 2.5rem;
+}
+
+.reg-continue-btn.disabled {
+    opacity: 0.6;
+}
+
+.reg-hint {
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    color: var(--fk-text-muted);
+}

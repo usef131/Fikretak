@@ -9,7 +9,7 @@ import SecondNavbar from '../../Components/Common/SecondNavbar'
 import CreatePost from '../createPost/createPost'
 import PostCard from '../../Components/Cards/postCard'
 import { postService } from '../../../Services/postServices'
-import './Profile.css';
+import '../../assets/styles/Profile.css';
 
 
 export default function Profile() {

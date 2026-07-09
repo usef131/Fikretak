@@ -6,7 +6,7 @@ import SecondNavbar from "../../Components/Common/SecondNavbar";
 import Footer from "../../Components/Common/Footer";
 import PageTransition from "./PageTransition";
 import FeaturedStartupRow from "../../Components/Cards/FeaturedStartupRow";
-import "./HomeTwo.css";
+import "../../assets/styles/HomeTwo.css";
 import PostCard from "../../Components/Cards/postCard";
 import { FaHeart, FaRegCommentDots, FaArrowRight } from "react-icons/fa";
 import { postService } from "../../../Services/postServices";
@@ -59,7 +59,7 @@ export default function HomePageTwo() {
               background: '#fefce8',
               borderBottom: '1px solid #fde68a',
               padding: '12px 0',
-              marginTop:'-85px',
+              marginTop:'-90px',
               marginBottom: '50px',
             }}>
               <Container className="d-flex align-items-center justify-content-between flex-wrap" style={{ gap: 10 }}>

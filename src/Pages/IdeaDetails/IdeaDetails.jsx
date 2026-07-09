@@ -4,7 +4,7 @@ import { Container, Row, Col, Button, Alert, Spinner } from 'react-bootstrap'
 import { ideaService } from '../../../Services/ideaService'
 import { useAuth } from '../../../Context/AuthContext'
 import InvestModal from '../../Components/Invest/Investmodal'
-import './IdeaDetails.css'
+import '../../assets/styles/IdeaDetails.css'
 
 export default function IdeaDetails() {
   const { id } = useParams()

@@ -7,7 +7,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FiHome } from 'react-icons/fi'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
 import { useAuth } from '../../../Context/AuthContext'
-import './BrowseProjects.css'
+import '../../assets/styles/BrowseProjects.css'
 const CATEGORIES = ['All', 'Tech', 'Health', 'Education', 'Finance', 'Environment', 'Social']
 
 export default function BrowseProjects() {

@@ -5,7 +5,7 @@ import InvestorCard from "../../Components/cards/InvestorCard";
 import axios from "axios";
 import SecondNavbar from "../../Components/Common/SecondNavbar";
 import { useAuth } from "../../../Context/AuthContext";
-import "./InvestorPage.css";
+import "../../assets/styles/InvestorPage.css";
 import investorService from "../../../Services/investorServices";
 
 const ALL_SECTORS = [

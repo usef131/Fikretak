@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Button } from 'react-bootstrap'
-import './Home.css'
+import '../../assets/styles/Home.css'
 import FooterLanding from "../../Components/Common/FooterLanding"
 import Navbar from "../../../src/Components/Common/Navbar"
 const FEATURES = [

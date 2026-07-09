@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
-import './Footer.css'
+import '../../assets/styles/Footer.css'
 
 export default function Footer() {
   return (

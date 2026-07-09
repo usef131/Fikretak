@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Navbar as BSNavbar, Container, Button } from 'react-bootstrap'
 import { useAuth } from '../../../Context/AuthContext'
-import '../../../src/styles/landingNavbar.css'
+import '../../assets/styles/landingNavbar.css'
   
 
 export default function Navbar() {

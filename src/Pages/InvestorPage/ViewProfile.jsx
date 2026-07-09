@@ -5,7 +5,7 @@ import { useAuth } from '../../../Context/AuthContext'
 import IdeaCard from '../../Components/cards/IdeaCard'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
 import axios from 'axios'
-import './ViewProfile.css'
+import '../../assets/styles/ViewProfile.css'
 
 export default function ViewProfile() {
     const { id } = useParams()

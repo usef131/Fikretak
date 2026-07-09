@@ -1,0 +1,78 @@
+.fk-login-page {
+  min-height: 100vh;
+  background: var(--fk-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.fk-login-box {
+  width: 100%;
+  max-width: 420px;
+}
+
+.fk-login-brand-link {
+  text-decoration: none;
+}
+
+.fk-login-brand {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--fk-text-primary);
+  letter-spacing: -0.5px;
+}
+
+.fk-login-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.fk-login-subtitle {
+  color: var(--fk-text-secondary);
+  font-size: 0.875rem;
+}
+
+.fk-login-alert {
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.fk-login-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.4rem;
+}
+
+.fk-login-input {
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+}
+
+.fk-login-forgot-link {
+  font-size: 0.82rem;
+  color: var(--fk-primary-btn);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.fk-login-submitbtn {
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.7rem;
+}
+
+.fk-login-footer-text {
+  font-size: 0.875rem;
+  color: var(--fk-text-secondary);
+}
+
+.fk-login-signup-link {
+  color: var(--fk-primary-btn);
+  font-weight: 600;
+  text-decoration: none;
+}

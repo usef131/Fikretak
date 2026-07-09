@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import './Home.css'
 import FooterLanding from "../../Components/Common/FooterLanding"
-
+import Navbar from "../../../src/Components/Common/Navbar"
 const FEATURES = [
   {
     icon: 'bi-rocket-takeoff',
@@ -54,7 +54,7 @@ const CHECKLIST = [
 export default function Home() {
   return (
     <div className="home-wrapper">
-
+      <Navbar />  
       {/* ── HERO ── */}
       <section className="hero-section">
         <Container className="d-flex flex-column align-items-center text-center">

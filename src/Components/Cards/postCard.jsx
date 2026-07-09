@@ -5,7 +5,7 @@ import heartIcon from "../../assets/images/heart.png";
 import redHeartIcon from "../../assets/images/redHeart.png";
 import commentIcon from "../../assets/images/chat.png";
 
-import "../../styles/postCard.css";
+import "../../assets/styles/postCard.css";
 
 export default function PostCard({ post, onDelete }) {
   const { user } = useAuth();

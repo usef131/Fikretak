@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { Mail, Phone, MapPin, ArrowUpRight, HelpCircle, Loader2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import styles from './Contact.module.css';
+import styles from '../../assets/styles/Contact.module.css';
 import SecondNavbar from '../../Components/Common/SecondNavbar';
 import Footer from '../../Components/Common/Footer';
 

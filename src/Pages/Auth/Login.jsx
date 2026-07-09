@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Container, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { useAuth } from '../../../Context/AuthContext'
-import './Login.css'
+import '../../assets/styles/Login.css'
 
 export default function Login() {
   const { login }  = useAuth()

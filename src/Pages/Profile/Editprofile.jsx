@@ -5,7 +5,7 @@ import { authService } from '../../../Services/authService'
 import { FiArrowLeft } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
-import './Editprofile.css'
+import '../../assets/styles/Editprofile.css'
 
 const SECTOR_OPTIONS = ['Fintech', 'EdTech', 'AgriTech', 'HealthTech', 'CleanEnergy', 'E-commerce', 'Logistics', 'SaaS']
 const STAGE_OPTIONS  = ['idea', 'mvp', 'growth', 'scaling']

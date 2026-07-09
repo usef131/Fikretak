@@ -5,7 +5,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 
 import logo from "../../assets/images/logo1.png";
-import "../../styles/navbar.css";
+import "../../assets/styles/navbar.css";
 
 
 function SecondNavbar() {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { ideaService } from '../../../Services/ideaService'
 import { useIdeas } from '../../../Context/IdeaContext'
-import './CreateIdea.css'
+import '../../assets/styles/CreateIdea.css'
 
 const CATEGORIES = ['Tech', 'Health', 'Education', 'Finance', 'Environment', 'Social', 'Other']
 

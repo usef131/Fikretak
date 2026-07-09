@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { FaEnvelope, FaMapMarkerAlt, FaMoneyBillWave } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import "./InvestorCard.css";
+import "../../assets/styles/InvestorCard.css";
 
 export default function InvestorCard({ investor }) {
     const navigate = useNavigate();

@@ -53,14 +53,17 @@ export default function Profile() {
 
           {/* ── Profile Card ── */}
           <div className="fk-card p-4 mb-4 profile-card">
-            <div className="profile-card-banner"/>
+            <div className="profile-card-banner" />
 
             <div className="profile-card-header">
               <div className="fk-avatar profile-avatar">
                 {initials}
               </div>
               <div className="profile-header-actions">
-                <button onClick={() => navigate('/edit-profile')} className="edit-profile-btn">
+                <button
+                  onClick={() => navigate('/edit-profile')}
+                  className="edit-profile-btn"
+                >
                   <i className="bi bi-gear" /> Edit Profile
                 </button>
               </div>
@@ -111,7 +114,7 @@ export default function Profile() {
                     </p>
                   )}
                   {user?.experience && (
-                    <p  className="profile-meta-line--tight">
+                    <p className="profile-meta-line--tight">
                       <i className="bi bi-briefcase" /> {user.experience}
                     </p>
                   )}
@@ -132,7 +135,7 @@ export default function Profile() {
                     </p>
                   )}
                   {user?.website && (
-                    <p className="profile-meta-line">
+                    <p className="profile-meta-line--tight">
                       <i className="bi bi-globe" />{' '}
                       <a href={user.website} target="_blank" rel="noreferrer" className="profile-website-link">
                         {user.website}
@@ -144,26 +147,31 @@ export default function Profile() {
 
               {/* LinkedIn — both roles */}
               {user?.linkedin && (
-  <div className="profile-social">
-    <span className="profile-social-label">
-      <i className="bi bi-linkedin"></i>
-      LinkedIn
-    </span>
+                <div className="profile-social">
+                  <span className="profile-social-label">
+                    <i className="bi bi-linkedin"></i>
+                    LinkedIn
+                  </span>
 
-    <a href={user.linkedin} target="_blank" rel="noopener noreferrer" className="profile-social-link">
-      View Profile
-      <i className="bi bi-arrow-up-right"></i>
-    </a>
-  </div>
-)}
-              
+                  <a
+                    href={user.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="profile-social-link"
+                  >
+                    View Profile
+                    <i className="bi bi-arrow-up-right"></i>
+                  </a>
+                </div>
+              )}
+
             </div>
           </div>
 
           {/* ── Stats row ── */}
           <div className="row justify-content-center gap-3 mb-4 profile-stats-row">
             <div className="col text-center">
-              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value" >
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value">
                 {user?.role === 'investor' ? interestedIdeas.length : myIdeas.length}
                 <div className="profile-stat-label">
                   {user?.role === 'investor' ? 'Interested' : 'Ideas'}
@@ -171,32 +179,28 @@ export default function Profile() {
               </div>
             </div>
             <div className="col text-center">
-              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value" >
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value">
                 0
-                <div className="profile-stat-label">
-                  Followers
-                </div>
+                <div className="profile-stat-label">Followers</div>
               </div>
             </div>
             <div className="col text-center">
-              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value" >
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value">
                 {posts.length}
-                <div className="profile-stat-label">
-                  Posts
-                </div>
+                <div className="profile-stat-label">Posts</div>
               </div>
             </div>
           </div>
 
           {/* ── Tabs ── */}
-          <Tabs defaultActiveKey="ideas" className="mb-3 profile-tabs" >
+          <Tabs defaultActiveKey="ideas" className="mb-3 profile-tabs">
 
             {user?.role === 'entrepreneur' && (
               <Tab eventKey="ideas" title={`My Ideas (${myIdeas.length})`}>
                 <div className="mt-3">
                   {myIdeasLoading ? (
                     <div className="text-center py-5">
-                      <Spinner animation="border" className="profile-spinner"/>
+                      <Spinner animation="border" className="profile-spinner" />
                     </div>
                   ) : myIdeas.length > 0 ? (
                     <Row className="g-3">
@@ -209,7 +213,8 @@ export default function Profile() {
                       <i className="bi bi-lightbulb profile-empty-icon" />
                       <p className="mt-3 profile-empty-text">
                         You haven't submitted any ideas yet.{' '}
-                        <span className="profile-empty-link" onClick={() => navigate('/create-idea')}>
+                        <span className="profile-empty-link"
+                          onClick={() => navigate('/create-idea')}>
                           Submit one now
                         </span>
                       </p>
@@ -234,7 +239,7 @@ export default function Profile() {
                 <div className="mt-3">
                   {interestedLoading ? (
                     <div className="text-center py-5">
-                      <Spinner animation="border" style={{ color: 'var(--fk-primary-btn)' }} />
+                      <Spinner animation="border" className="profile-spinner" />
                     </div>
                   ) : interestedIdeas.length > 0 ? (
                     <Row className="g-3">
@@ -247,7 +252,7 @@ export default function Profile() {
                       <i className="bi bi-heart profile-empty-icon" />
                       <p className="mt-3 profile-empty-text">
                         You haven't expressed interest in any ideas yet.{' '}
-                        <span style={{ color: 'var(--fk-primary-btn)', cursor: 'pointer', fontWeight: 600 }}
+                        <span className="profile-empty-link"
                           onClick={() => navigate('/Browse-projects')}>
                           Browse the projects
                         </span>

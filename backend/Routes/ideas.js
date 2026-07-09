@@ -6,13 +6,13 @@ const upload = require('../Middleware/upload')
 router.get('/',                      ctrl.getIdeas)
 router.get('/my',                    protect, authorize('entrepreneur'), ctrl.getMyIdeas)
 router.get('/interested',            protect, authorize('investor'), ctrl.getInterestedIdeas)
-router.get('/interested-by/:userId', ctrl.getInterestedIdeasByUser)  // ← moved up
-router.get('/by-user/:userId',       ctrl.getIdeasByUser)            // ← moved up
-router.get('/:id',                   ctrl.getIdeaById)               // ← always last
+router.get('/interested-by/:userId', ctrl.getInterestedIdeasByUser)  
+router.get('/by-user/:userId',       ctrl.getIdeasByUser)            
+router.get('/:id',                   ctrl.getIdeaById)             
 
 router.post('/',    protect, authorize('entrepreneur'), ctrl.createIdea)
 router.put('/:id',  protect, authorize('entrepreneur'), ctrl.updateIdea)
-router.delete('/:id',protect,authorize('entrepreneur'),ctrl.deleteIdea)
+router.delete('/:id',protect, authorize('entrepreneur'),ctrl.deleteIdea)
 
 
 router.post('/:id/interest',   protect, authorize('investor'), ctrl.expressInterest)

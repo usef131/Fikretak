@@ -57,6 +57,8 @@ button.main-btn.white-btn {
     transition: all 0.3s ease;
 }
 
+
+
 .investor-btn:hover {
     transform: translateY(-6px) scale(1.02);
     box-shadow: 0 22px 55px rgba(3, 42, 110, 0.45);

@@ -6,6 +6,7 @@ import axios from "axios";
 import SecondNavbar from "../../Components/Common/SecondNavbar";
 import { useAuth } from "../../../Context/AuthContext";
 import "./InvestorPage.css";
+import investorService from "../../../Services/investorServices";
 
 const ALL_SECTORS = [
   "All",
@@ -19,8 +20,8 @@ const ALL_SECTORS = [
 ];
 
 export default function Investors() {
-  const { user: currentUser } = useAuth();
 
+  const { user: currentUser } = useAuth();
   const [investors, setInvestors] = useState([]);
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
@@ -32,18 +33,21 @@ export default function Investors() {
 
   const fetchInvestors = async () => {
     try {
-      const res = await axios.get("/api/users/investors");
+      // get all investors from api 
+      const res = await investorService.getInvestors();
       setInvestors(
-        res.data.investors.filter((inv) => inv._id !== currentUser?._id)
+        // Exclude the current user from the list of investors 
+        res.investors.filter((inv) => inv._id !== currentUser?._id)
       );
     } catch (err) {
-      console.log(err);
+      console.log(err); 
     } finally {
       setLoading(false);
     }
   };
 
   const filtered = useMemo(() => {
+
     return investors.filter((inv) => {
       const matchesSearch =
         search.trim() === "" ||
@@ -86,9 +90,8 @@ export default function Investors() {
             {ALL_SECTORS.map((sector) => (
               <button
                 key={sector}
-                className={`sector-btn ${
-                  activeFilter === sector ? "active" : ""
-                }`}
+                className={`sector-btn ${activeFilter === sector ? "active" : ""
+                  }`}
                 onClick={() => setActiveFilter(sector)}
               >
                 {sector}

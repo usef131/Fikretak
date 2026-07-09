@@ -5,6 +5,7 @@ import { authService } from '../../../Services/authService'
 import { FiArrowLeft } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
+import './Editprofile.css'
 
 const SECTOR_OPTIONS = ['Fintech', 'EdTech', 'AgriTech', 'HealthTech', 'CleanEnergy', 'E-commerce', 'Logistics', 'SaaS']
 const STAGE_OPTIONS  = ['idea', 'mvp', 'growth', 'scaling']
@@ -63,133 +64,77 @@ export default function EditProfile() {
     <>
       <SecondNavbar />
 
-      <div style={{ background: 'var(--fk-bg)', minHeight: '100vh' }}>
-        <Container style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-
+      <div className="edit-profile-page">
+        <Container className="edit-profile-container">
           {/* Back */}
-          <button
-            onClick={() => navigate('/profile')}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              background: 'none', border: 'none', cursor: 'pointer',
-              color: 'var(--fk-text-muted)', fontWeight: 600,
-              fontSize: '0.875rem', marginBottom: '1.25rem', padding: 0,
-            }}
-          >
+          <button onClick={() => navigate('/profile')}className="back-btn">
             <FiArrowLeft size={16} /> Back to Profile
           </button>
-
-          <h2 style={{ fontWeight: 800, fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--fk-text-primary)' }}>
+          <h2 className="edit-profile-title">
             Edit Profile
           </h2>
-
           <Row>
             <Col md={10}>
-              {saved     && <Alert variant="success" style={{ fontSize: '0.875rem' }}>Profile updated! Redirecting…</Alert>}
-              {saveError && <Alert variant="danger"  style={{ fontSize: '0.875rem' }}>{saveError}</Alert>}
-
+              {saved     && <Alert variant="success" className="edit-profile-alert">Profile updated! Redirecting…</Alert>}
+              {saveError && <Alert variant="danger"  className="edit-profile-alert">{saveError}</Alert>}
               <div className="fk-card p-4">
                 <Form onSubmit={handleSave}>
-
                   {/* ── Shared fields ── */}
-                  <p style={{ fontWeight: 700, fontSize: '0.78rem', color: 'var(--fk-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>
+                  <p className="section-label">
                     Basic Info
                   </p>
-
                   <Form.Group className="mb-3">
-                    <Form.Label style={labelStyle}>Full Name</Form.Label>
-                    <Form.Control
-                      value={form.name || ''}
-                      onChange={e => set('name', e.target.value)}
-                      style={inputStyle}
-                    />
+                    <Form.Label className="field-label">Full Name</Form.Label>
+                    <Form.Control value={form.name || ''} onChange={e => set('name', e.target.value)} className="field-input"/>
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label style={labelStyle}>Email</Form.Label>
-                    <Form.Control
-                      value={user?.email || ''}
-                      disabled
-                      style={{ ...inputStyle, background: 'var(--fk-bg)' }}
-                    />
-                    <Form.Text style={{ fontSize: '0.78rem', color: 'var(--fk-text-muted)', marginLeft: '0.5rem' }}>
+                    <Form.Label className="field-label">Email</Form.Label>
+                    <Form.Control value={user?.email || ''} disabled className="field-input field-input--disabled" />
+                    <Form.Text  className="field-hint">
                          Email cannot be changed
                     </Form.Text>
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label style={labelStyle}>Bio</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      value={form.bio || ''}
-                      onChange={e => set('bio', e.target.value)}
-                      placeholder="Tell others a little about yourself…"
-                      style={{ ...inputStyle, resize: 'vertical' }}
-                    />
+                    <Form.Label className="field-label">Bio</Form.Label>
+                    <Form.Control as="textarea" rows={3} value={form.bio || ''}onChange={e => set('bio', e.target.value)} placeholder="Tell others a little about yourself…" className="field-input field-input--textarea"/>
                   </Form.Group>
 
                   <Row className="mb-3">
                     <Col md={6}>
                       <Form.Group>
-                        <Form.Label style={labelStyle}>Location</Form.Label>
-                        <Form.Control
-                          value={form.location || ''}
-                          onChange={e => set('location', e.target.value)}
-                          placeholder="Cairo, Egypt"
-                          style={inputStyle}
-                        />
+                        <Form.Label className="field-label">Location</Form.Label>
+                        <Form.Control value={form.location || ''} onChange={e => set('location', e.target.value)} placeholder="Cairo, Egypt" className="field-input"/>
                       </Form.Group>
                     </Col>
                     <Col md={6}>
                       <Form.Group>
-                        <Form.Label style={labelStyle}>LinkedIn URL</Form.Label>
-                        <Form.Control
-                          value={form.linkedin || ''}
-                          onChange={e => set('linkedin', e.target.value)}
-                          placeholder="https://linkedin.com/in/yourname"
-                          style={inputStyle}
-                        />
+                        <Form.Label className="field-label">LinkedIn URL</Form.Label>
+                        <Form.Control value={form.linkedin || ''} onChange={e => set('linkedin', e.target.value)} placeholder="https://linkedin.com/in/yourname" className="field-input"/>
                       </Form.Group>
                     </Col>
                   </Row>
 
-                  <hr style={{ borderColor: 'var(--fk-border)', margin: '1.5rem 0' }} />
+                  <hr className="section-divider"/>
 
                   {/* ── Investor-only fields ── */}
                   {user?.role === 'investor' && (
                     <>
-                      <p style={{ fontWeight: 700, fontSize: '0.78rem', color: 'var(--fk-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>
-                        Investor Info
+                      <p className="section-label">                   
+                         Investor Info
                       </p>
 
                       <Form.Group className="mb-3">
-                        <Form.Label style={labelStyle}>Investment Sectors</Form.Label>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 6 }}>
+                        <Form.Label className="field-label">Investment Sectors</Form.Label>
+                        <div className="sector-options">
                           {SECTOR_OPTIONS.map(s => (
-                            <button
-                              key={s}
-                              type="button"
-                              onClick={() => toggleSector(s)}
-                              style={{
-                                padding: '5px 14px',
-                                borderRadius: 'var(--radius-pill)',
-                                border: '1.5px solid',
-                                fontSize: '0.8rem',
-                                fontWeight: 600,
-                                cursor: 'pointer',
-                                transition: 'all 0.15s',
-                                ...(form.sectors.includes(s)
-                                  ? { background: '#EEEDFE', borderColor: '#AFA9EC', color: '#3C3489' }
-                                  : { background: 'var(--fk-surface)', borderColor: 'var(--fk-border)', color: 'var(--fk-text-muted)' }
-                                )
-                              }}
-                            >
+                            <button key={s} type="button" onClick={() => toggleSector(s)}className={`sector-pill ${form.sectors.includes(s) ? 'sector-pill--active' : ''}`} >
                               {s}
                             </button>
                           ))}
                         </div>
-                        <Form.Text style={{ fontSize: '0.78rem', color: 'var(--fk-text-muted)' }}>
+                        <Form.Text className="field-hint--no-indent">
                           Select all that apply
                         </Form.Text>
                       </Form.Group>
@@ -197,24 +142,14 @@ export default function EditProfile() {
                       <Row className="mb-3">
                         <Col md={6}>
                           <Form.Group>
-                            <Form.Label style={labelStyle}>Ticket Size</Form.Label>
-                            <Form.Control
-                              value={form.ticketSize || ''}
-                              onChange={e => set('ticketSize', e.target.value)}
-                              placeholder="e.g. $50K – $200K"
-                              style={inputStyle}
-                            />
+                            <Form.Label className="field-label">Ticket Size</Form.Label>
+                            <Form.Control value={form.ticketSize || ''} onChange={e => set('ticketSize', e.target.value)} placeholder="e.g. $50K – $200K" className="field-input" />
                           </Form.Group>
                         </Col>
                         <Col md={6}>
                           <Form.Group>
-                            <Form.Label style={labelStyle}>Experience</Form.Label>
-                            <Form.Control
-                              value={form.experience || ''}
-                              onChange={e => set('experience', e.target.value)}
-                              placeholder="e.g. 10+ years in VC"
-                              style={inputStyle}
-                            />
+                            <Form.Label className="field-label">Experience</Form.Label>
+                            <Form.Control value={form.experience || ''} onChange={e => set('experience', e.target.value)} placeholder="e.g. 10+ years in VC" className="field-input" />
                           </Form.Group>
                         </Col>
                       </Row>
@@ -224,33 +159,24 @@ export default function EditProfile() {
                   {/* ── Entrepreneur-only fields ── */}
                   {user?.role === 'entrepreneur' && (
                     <>
-                      <p style={{ fontWeight: 700, fontSize: '0.78rem', color: 'var(--fk-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>
+                      <p className="section-label">
                         Startup Info
                       </p>
 
                       <Row className="mb-3">
                         <Col md={6}>
                           <Form.Group>
-                            <Form.Label style={labelStyle}>Startup Name</Form.Label>
-                            <Form.Control
-                              value={form.startup || ''}
-                              onChange={e => set('startup', e.target.value)}
-                              placeholder="Your startup name"
-                              style={inputStyle}
-                            />
+                            <Form.Label className="field-label">Startup Name</Form.Label>
+                            <Form.Control value={form.startup || ''} onChange={e => set('startup', e.target.value)} placeholder="Your startup name" className="field-input"/>
                           </Form.Group>
                         </Col>
                         <Col md={6}>
                           <Form.Group>
-                            <Form.Label style={labelStyle}>Stage</Form.Label>
-                            <Form.Select
-                              value={form.stage}
-                              onChange={e => set('stage', e.target.value)}
-                              style={inputStyle}
-                            >
+                            <Form.Label className="field-label">Stage</Form.Label>
+                            <Form.Select value={form.stage} onChange={e => set('stage', e.target.value)} className="field-input">
                               <option value="">Select stage…</option>
                               {STAGE_OPTIONS.map(s => (
-                                <option key={s} value={s} style={{ textTransform: 'capitalize' }}>{s}</option>
+                                <option key={s} value={s} className="stage-option">{s}</option>
                               ))}
                             </Form.Select>
                           </Form.Group>
@@ -258,34 +184,19 @@ export default function EditProfile() {
                       </Row>
 
                       <Form.Group className="mb-3">
-                        <Form.Label style={labelStyle}>Website</Form.Label>
-                        <Form.Control
-                          value={form.website}
-                          onChange={e => set('website', e.target.value)}
-                          placeholder="https://yourstartup.com"
-                          style={inputStyle}
-                        />
+                        <Form.Label className="field-label">Website</Form.Label>
+                        <Form.Control value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourstartup.com" className="field-input"/>
                       </Form.Group>
                     </>
                   )}
 
                   {/* ── Actions ── */}
-                  <div className="d-flex gap-3 mt-4">
-                    <Button
-                      type="submit"
-                      disabled={saving}
-                      className="btn-primary"
-                      style={{ borderRadius: 'var(--radius-pill)', fontWeight: 700, padding: '8px 24px' }}
-                    >
+                 <div className="d-flex form-actions">
+                    <Button type="submit" disabled={saving} className="btn-primary  action-btn">
                       {saving ? <Spinner size="sm" /> : 'Save Changes'}
                     </Button>
 
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      onClick={() => navigate('/profile')}
-                      style={{ borderRadius: 'var(--radius-pill)', fontWeight: 700, padding: '8px 24px' }}
-                    >
+                    <Button type="button" variant="secondary" onClick={() => navigate('/profile')} className="action-btn">
                       Cancel
                     </Button>
                   </div>

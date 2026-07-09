@@ -54,25 +54,11 @@ export default function HomePageTwo() {
       <section className="hero">
         <PageTransition>
           {user?.role === 'investor' && (!user?.bio || !user?.sectors?.length || !user?.ticketSize || !user?.location) && (
-<<<<<<< Updated upstream
-            <div style={{
-              background: '#fefce8',
-              borderBottom: '1px solid #fde68a',
-              padding: '12px 0',
-              marginTop:'-90px',
-              marginBottom: '50px',
-            }}>
-              <Container className="d-flex align-items-center justify-content-between flex-wrap" style={{ gap: 10 }}>
-                <div className="d-flex align-items-center" style={{ gap: 10 }}>
-                  <i className="bi bi-exclamation-circle-fill" style={{ color: '#d97706', fontSize: '1.1rem' }} />
-                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#92400e' }}>
-=======
             <div className="profile-banner">
               <Container className="profile-banner-inner">
                 <div className="profile-banner-left">
                   <i className="bi bi-exclamation-circle-fill profile-banner-icon" />
                   <span className="profile-banner-text">
->>>>>>> Stashed changes
                     Complete your investor profile so entrepreneurs can find you
                   </span>
                   <div className="profile-banner-tags">

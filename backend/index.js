@@ -46,7 +46,7 @@ app.use((err, req, res, next) => {
 })
 
 // ── Database + Start ──
-const PORT = process.env.PORT || 5003
+const PORT = process.env.PORT || 5002
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

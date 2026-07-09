@@ -30,7 +30,7 @@ export default function HomePageTwo() {
 
 
   useEffect(() => {
-      api.get("/posts")
+    api.get("/posts")
       .then(data => {
         console.log("posts from API:", data)
         setPosts(data.posts || data)
@@ -53,8 +53,8 @@ export default function HomePageTwo() {
       {/* HERO */}
       <section className="hero">
         <PageTransition>
-          {/* ── Profile completion banner ── */}
           {user?.role === 'investor' && (!user?.bio || !user?.sectors?.length || !user?.ticketSize || !user?.location) && (
+<<<<<<< Updated upstream
             <div style={{
               background: '#fefce8',
               borderBottom: '1px solid #fde68a',
@@ -66,34 +66,32 @@ export default function HomePageTwo() {
                 <div className="d-flex align-items-center" style={{ gap: 10 }}>
                   <i className="bi bi-exclamation-circle-fill" style={{ color: '#d97706', fontSize: '1.1rem' }} />
                   <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#92400e' }}>
+=======
+            <div className="profile-banner">
+              <Container className="profile-banner-inner">
+                <div className="profile-banner-left">
+                  <i className="bi bi-exclamation-circle-fill profile-banner-icon" />
+                  <span className="profile-banner-text">
+>>>>>>> Stashed changes
                     Complete your investor profile so entrepreneurs can find you
                   </span>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    {!user?.bio && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Bio</span>}
-                    {!user?.location && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Location</span>}
-                    {!user?.ticketSize && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Ticket size</span>}
-                    {!user?.sectors?.length && <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '20px', background: '#fde68a', color: '#92400e', fontWeight: 600 }}>Sectors</span>}
+                  <div className="profile-banner-tags">
+                    {!user?.bio && <span className="profile-banner-tag">Bio</span>}
+                    {!user?.location && <span className="profile-banner-tag">Location</span>}
+                    {!user?.ticketSize && <span className="profile-banner-tag">Ticket size</span>}
+                    {!user?.sectors?.length && <span className="profile-banner-tag">Sectors</span>}
                   </div>
                 </div>
                 <button
                   onClick={() => navigate('/edit-profile')}
-                  style={{
-                    padding: '6px 16px',
-                    borderRadius: '20px',
-                    border: '1.5px solid #d97706',
-                    background: '#fff',
-                    color: '#92400e',
-                    fontWeight: 700,
-                    fontSize: '0.82rem',
-                    cursor: 'pointer',
-                    whiteSpace: 'nowrap',
-                  }}
+                  className="profile-banner-btn"
                 >
                   Complete Profile →
                 </button>
               </Container>
             </div>
           )}
+
           {/* HERO */}
           <Container>
             <Row className="justify-content-center text-center">

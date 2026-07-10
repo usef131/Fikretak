@@ -34,9 +34,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Compare password
+// Create function for each user instance to compare the provided password with the hashed password in the database
 userSchema.methods.comparePassword = function (candidate) {
-  return bcrypt.compare(candidate, this.password);
+  return bcrypt.compare(candidate, this.password); // true / false
 };
 
 // Never return password in JSON

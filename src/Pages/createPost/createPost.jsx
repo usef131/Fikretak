@@ -34,14 +34,9 @@ export default function CreatePost({ onPostCreated }) {
       <div className="d-flex gap-3">
         {/* Avatar */}
         <div className="create-post-avatar">
-          {post.user?.avatar ? (
-            <img
-              src={`http://localhost:5002${post.user.avatar}`}
-              alt="avatar"
-            />
-          ) : (
-            initials
-          )}
+         
+            {initials}
+          
         </div>
 
         {/* Input */}

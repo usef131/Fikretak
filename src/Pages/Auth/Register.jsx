@@ -13,7 +13,7 @@ const ROLES = [
 export default function Register() {
   const { register } = useAuth()
   const navigate = useNavigate()
-
+  
   const [step, setStep] = useState(1)
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', role: '' })
   const [errors, setErrors] = useState({})

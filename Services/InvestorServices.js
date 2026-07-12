@@ -11,6 +11,10 @@ const investorService = {
 
   // ideas created by an entrepreneur
   getIdeasByUser: (id) => api.get(`/ideas/by-user/${id}`),
+
+  followUser: (id) => api.post(`/users/investors/${id}/follow`),
+
+  getFollowing: () => api.get('/users/me/following'),
 };
 
 export default investorService;

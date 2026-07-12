@@ -3,25 +3,37 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
-    name:     { type: String, required: true, trim: true },
-    email:    { type: String, required: true, unique: true, lowercase: true, trim: true },
+    name: { type: String, required: true, trim: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
     password: { type: String, required: true, minlength: 6 },
-    role:     { type: String, enum: ["entrepreneur", "investor"], required: true },
-    bio:      { type: String, default: "" },
-    avatar:   { type: String, default: "" },
+    role: { type: String, enum: ["entrepreneur", "investor"], required: true },
+    bio: { type: String, default: "" },
+    avatar: { type: String, default: "" },
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 
     // shared
     location: { type: String, default: "" },
     linkedin: { type: String, default: "" },
 
     // investor-only
-    sectors:    { type: [String], default: [] },
+    sectors: { type: [String], default: [] },
     ticketSize: { type: String, default: "" },
     experience: { type: String, default: "" },
 
     // entrepreneur-only
     startup: { type: String, default: "" },
-    stage:   { type: String, enum: ["", "idea", "mvp", "growth", "scaling"], default: "" },
+    stage: {
+      type: String,
+      enum: ["", "idea", "mvp", "growth", "scaling"],
+      default: "",
+    },
     website: { type: String, default: "" },
   },
   { timestamps: true },

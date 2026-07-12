@@ -10,6 +10,8 @@ import CreatePost from '../createPost/createPost'
 import PostCard from '../../Components/Cards/postCard'
 import { postService } from '../../../Services/postServices'
 import '../../assets/styles/Profile.css';
+import investorService from '../../../Services/investorServices'
+import FollowCard from '../../Components/Cards/FollowCard'
 
 
 export default function Profile() {
@@ -19,6 +21,8 @@ export default function Profile() {
   const [interestedIdeas, setInterestedIdeas] = useState([])
   const [interestedLoading, setInterestedLoading] = useState(false)
   const [posts, setPosts] = useState([])
+  const [followingList, setFollowingList] = useState([])
+  const [followingLoading, setFollowingLoading] = useState(false)
 
   useEffect(() => {
     if (user?.role === 'entrepreneur') fetchMyIdeas()
@@ -43,6 +47,25 @@ export default function Profile() {
 
   const initials =
     user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'U'
+
+
+  useEffect(() => {
+    if (!user?._id) return
+    setFollowingLoading(true)
+    investorService.getFollowing()
+      .then(d => setFollowingList(d.following || []))
+      .catch(() => { })
+      .finally(() => setFollowingLoading(false))
+  }, [user?._id])
+
+  const handleUnfollow = async (targetId) => {
+    try {
+      await investorService.followUser(targetId) // toggle endpoint — unfollows since already following
+      setFollowingList(prev => prev.filter(p => p._id !== targetId))
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -180,8 +203,14 @@ export default function Profile() {
             </div>
             <div className="col text-center">
               <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value">
-                0
+                {user?.followers?.length || 0}
                 <div className="profile-stat-label">Followers</div>
+              </div>
+            </div>
+            <div className="col text-center">
+              <div className="fk-card h-100 p-4 d-flex flex-column profile-stat-value">
+                {followingList.length}
+                <div className="profile-stat-label">Following</div>
               </div>
             </div>
             <div className="col text-center">
@@ -223,7 +252,7 @@ export default function Profile() {
                 </div>
               </Tab>
             )}
-          
+
             {/* Posts tab */}
             <Tab eventKey="posts" title={`Posts (${posts.length})`}>
               <div className="mt-3">
@@ -231,6 +260,34 @@ export default function Profile() {
                 {posts.map(post => (
                   <PostCard key={post._id} post={post} onDelete={handlePostDeleted} />
                 ))}
+              </div>
+            </Tab>
+
+            <Tab eventKey="following" title={`Following (${followingList.length})`}>
+              <div className="mt-3">
+                {followingLoading ? (
+                  <div className="text-center py-5">
+                    <Spinner animation="border" className="profile-spinner" />
+                  </div>
+                ) : followingList.length > 0 ? (
+                  <Row className="g-3">
+                    {followingList.map(person => (
+                      <Col key={person._id} xs={12} md={6} lg={4}>
+                        <FollowCard person={person} onUnfollow={handleUnfollow} />
+                      </Col>
+                    ))}
+                  </Row>
+                ) : (
+                  <div className="text-center py-5">
+                    <i className="bi bi-people profile-empty-icon" />
+                    <p className="mt-3 profile-empty-text">
+                      You're not following anyone yet.{' '}
+                      <span className="profile-empty-link" onClick={() => navigate('/investors')}>
+                        Discover investors
+                      </span>
+                    </p>
+                  </div>
+                )}
               </div>
             </Tab>
 

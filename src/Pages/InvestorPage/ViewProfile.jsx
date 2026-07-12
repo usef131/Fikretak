@@ -18,6 +18,7 @@ export default function ViewProfile() {
     const [ideas, setIdeas] = useState([])
     const [ideasLoading, setIdeasLoading] = useState(false)
     const [isFollowing, setIsFollowing] = useState(false)
+    const [followersCount, setFollowersCount] = useState(0)
 
     useEffect(() => {
         fetchProfile()
@@ -48,7 +49,26 @@ export default function ViewProfile() {
         }
     }
 
-    const handleFollow = () => setIsFollowing(prev => !prev)
+    useEffect(() => {
+        if (profile) {
+            setFollowersCount(profile.followersCount || 0)
+            if (currentUser) {
+                setIsFollowing(
+                    profile.followers?.some(f => (f._id || f) === currentUser._id) || false
+                )
+            }
+        }
+    }, [profile, currentUser])
+
+    const handleFollow = async () => {
+        try {
+            const data = await investorService.followUser(id) // already unwrapped by api.js interceptor
+            setIsFollowing(data.isFollowing)
+            setFollowersCount(data.followersCount)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     /* ── Loading ── */
     if (profileLoading) {

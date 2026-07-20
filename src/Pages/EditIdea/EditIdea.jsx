@@ -37,7 +37,7 @@ export default function EditIdea() {
           category:     idea.category     || '',
           targetMarket: idea.targetMarket || '',
           fundingGoal:  idea.fundingGoal  || '',
-          teamMembers:  idea.teamSize     || idea.teamMembers || '',
+          teamMembers:  idea.teamMembers  || '',
         })
         if (idea.roadmap?.length) setRoadmap(idea.roadmap)
         if (idea.image) setPreview(idea.image)

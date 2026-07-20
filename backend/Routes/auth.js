@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const ctrl   = require('../controllers/authController')
-const { protect } = require('../middleware/auth')
+const ctrl   = require('../Controllers/authController')
+const { protect } = require('../Middleware/auth')
 
 // ctrl.login -> when request is made to /auth/login, it will call the login function in authController and return the response to the client 
 router.post('/register',        ctrl.register)

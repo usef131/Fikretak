@@ -32,7 +32,7 @@ export default function IdeaDetails() {
       })
       .catch(() => setError('Idea not found or unavailable.'))
       .finally(() => setLoading(false))
-  }, [id, user])
+  }, [id, user?._id])
 
   const handleInterest = async () => {
     if (!user) return navigate('/login')
@@ -208,6 +208,7 @@ export default function IdeaDetails() {
         </Row>
 
         {/* Roadmap */}
+        {idea.roadmap?.length > 0 && (
         <div className="fk-card roadmap-card mt-4">
 
           <h2 className="roadmap-title">
@@ -215,7 +216,7 @@ export default function IdeaDetails() {
           </h2>
 
           <Row>
-            {idea.roadmap.map((item, i) => (
+            {(idea.roadmap || []).map((item, i) => (
               <Col key={i}>
                 <div className="roadmap-item">
                   <h6 className="roadmap-period">
@@ -235,6 +236,7 @@ export default function IdeaDetails() {
           </Row>
 
         </div>
+        )}
 
       </Container>
       <InvestModal show={showInvest} onHide={() => setShowInvest(false)} idea={idea} />

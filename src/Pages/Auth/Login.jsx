@@ -33,8 +33,9 @@ export default function Login() {
     setLoading(true); setApiError('')
     try {
       await login(form.email, form.password)
-      // replace true because we don't want the user to go back to the login page after logging in
-      navigate("/home-two", { replace: true })
+      // Return the user to the page they were sent from, or the app home.
+      const dest = from && from !== '/' ? from : '/home-two'
+      navigate(dest, { replace: true })
     } catch (e) {
       setApiError(e.message)
     } finally {

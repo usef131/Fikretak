@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const ctrl   = require('../controllers/postController')
-const { protect } = require('../middleware/auth')
+const ctrl   = require('../Controllers/postController')
+const { protect } = require('../Middleware/auth')
 
 router.get('/', protect , ctrl.getPosts)
 router.get('/my',  protect, ctrl.getMyPosts) 

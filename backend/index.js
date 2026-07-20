@@ -1,52 +1,84 @@
 require('dotenv').config()
-const express    = require('express')
-const cors       = require('cors')
-const mongoose   = require('mongoose')
-const rateLimit  = require('express-rate-limit')
-const postRoutes  = require('./routes/post')
-const authRoutes  = require('./routes/auth')
-const ideaRoutes  = require('./routes/ideas')
-const userRoutes = require('./routes/Investors')
-const investmentRoutes = require('./Routes/investment')
+const express     = require('express')
+const cors        = require('cors')
+const helmet      = require('helmet')
+const compression = require('compression')
+const mongoose    = require('mongoose')
+const rateLimit   = require('express-rate-limit')
 
+const sanitize        = require('./Middleware/sanitize')
+const postRoutes       = require('./Routes/post')
+const authRoutes       = require('./Routes/auth')
+const ideaRoutes       = require('./Routes/ideas')
+const userRoutes       = require('./Routes/Investors')
+const investmentRoutes = require('./Routes/investment')
 
 const app = express()
 
-// ── Middleware ──
-app.use(cors({ 
-  origin: ['http://localhost:5173', 'http://localhost:5175'],
-  credentials: true 
+// ── Security & core middleware ──
+app.use(helmet())
+app.use(compression())
+
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map(o => o.trim())
+  // keep common Vite dev ports working out of the box
+  .concat(['http://localhost:5173', 'http://localhost:5175'])
+app.use(cors({
+  origin: [...new Set(allowedOrigins)],
+  credentials: true,
 }))
+
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
+app.use(sanitize) // strip NoSQL operator injection from all input
 
-// Rate limiting
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 200, message: 'Too many requests' })
-app.use('/api', limiter)
+// ── Rate limiting ──
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests, please try again later.' },
+})
+// Stricter limiter for auth to slow brute-force / credential stuffing
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many attempts, please try again later.' },
+})
+app.use('/api', apiLimiter)
 
 // ── Routes ──
-app.use('/api/auth',  authRoutes)
+app.use('/api/auth',  authLimiter, authRoutes)
 app.use('/api/ideas', ideaRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/ideas/:id/investments', investmentRoutes)
 app.use('/api/posts', postRoutes)
 
-
-
 // Health check
-app.get('/api/health', (_, res) => res.json({ status: 'ok', time: new Date() }))
+app.get('/api/health', (_req, res) => res.json({ status: 'ok', time: new Date() }))
 
 // 404
-app.use((req, res) => res.status(404).json({ message: 'Route not found' }))
+app.use((_req, res) => res.status(404).json({ message: 'Route not found' }))
 
 // Global error handler
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   console.error(err.stack)
-  res.status(err.status || 500).json({ message: err.message || 'Internal server error' })
+  res.status(err.status || 500).json({
+    message: err.status ? err.message : 'Internal server error',
+  })
 })
 
 // ── Database + Start ──
 const PORT = process.env.PORT || 5002
+
+if (!process.env.JWT_SECRET) {
+  console.error('❌ JWT_SECRET is not set. Copy backend/.env.example to backend/.env and set it.')
+  process.exit(1)
+}
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

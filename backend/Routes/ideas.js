@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const ctrl   = require('../controllers/ideaController')
-const { protect, authorize } = require('../middleware/auth')
-const upload = require('../Middleware/upload')
+const ctrl   = require('../Controllers/ideaController')
+const { protect, authorize } = require('../Middleware/auth')
 
 router.get('/',                      ctrl.getIdeas)
 router.get('/my',                    protect, authorize('entrepreneur'), ctrl.getMyIdeas)

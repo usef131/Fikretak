@@ -2,7 +2,13 @@ import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import '../../assets/styles/Footer.css'
 
-export default function Footer() {
+// variant="app" (default) links into the authenticated app.
+// variant="landing" links suit the public marketing page.
+export default function Footer({ variant = 'app' }) {
+  const links = variant === 'landing'
+    ? { browse: '/register', about: '/#features', contact: '/contact' }
+    : { browse: '/browse-projects', about: '/', contact: '/contact' }
+
   return (
     <footer className="fk-footer">
       <Container>
@@ -19,19 +25,19 @@ export default function Footer() {
           <Col md={2} className="offset-md-2">
             <h6>Product</h6>
             <ul className="list-unstyled fk-footer-links">
-              <li><Link to="/browse-projects">Browse Ideas</Link></li>  
+              <li><Link to={links.browse}>Browse Ideas</Link></li>
             </ul>
           </Col>
           <Col md={2}>
             <h6>Company</h6>
             <ul className="list-unstyled fk-footer-links">
-              <li><Link to="/">About</Link></li>
+              <li><Link to={links.about}>About</Link></li>
             </ul>
           </Col>
           <Col md={2}>
             <h6>Legal</h6>
             <ul className="list-unstyled fk-footer-links">
-              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to={links.contact}>Contact</Link></li>
             </ul>
           </Col>
         </Row>

@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { Container, Row, Col, Form, Button, Spinner, Dropdown } from 'react-bootstrap'
 import { useIdeas } from '../../../Context/IdeaContext'
-import IdeaCard from '../../Components/cards/IdeaCard'
+import IdeaCard from '../../Components/Cards/IdeaCard'
 import { FaArrowLeft } from "react-icons/fa";
 import { FiHome } from 'react-icons/fi'
 import SecondNavbar from '../../Components/Common/SecondNavbar'

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Container, Row, Col, Spinner, Tab, Tabs } from 'react-bootstrap'
 import { useAuth } from '../../../Context/AuthContext'
 import { ideaService } from '../../../Services/ideaService'
-import IdeaCard from '../../Components/cards/IdeaCard'
+import IdeaCard from '../../Components/Cards/IdeaCard'
 import { useNavigate } from 'react-router-dom'
 import { useIdeas } from '../../../Context/IdeaContext'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
@@ -10,7 +10,7 @@ import CreatePost from '../createPost/createPost'
 import PostCard from '../../Components/Cards/postCard'
 import { postService } from '../../../Services/postServices'
 import '../../assets/styles/Profile.css';
-import investorService from '../../../Services/investorServices'
+import investorService from '../../../Services/InvestorServices'
 import FollowCard from '../../Components/Cards/FollowCard'
 
 
@@ -282,7 +282,7 @@ export default function Profile() {
                     <i className="bi bi-people profile-empty-icon" />
                     <p className="mt-3 profile-empty-text">
                       You're not following anyone yet.{' '}
-                      <span className="profile-empty-link" onClick={() => navigate('/investors')}>
+                      <span className="profile-empty-link" onClick={() => navigate('/investor')}>
                         Discover investors
                       </span>
                     </p>
@@ -310,7 +310,7 @@ export default function Profile() {
                       <p className="mt-3 profile-empty-text">
                         You haven't expressed interest in any ideas yet.{' '}
                         <span className="profile-empty-link"
-                          onClick={() => navigate('/Browse-projects')}>
+                          onClick={() => navigate('/browse-projects')}>
                           Browse the projects
                         </span>
                       </p>

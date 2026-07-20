@@ -1,46 +1,6 @@
-import { Link } from 'react-router-dom'
-import { Container, Row, Col } from 'react-bootstrap'
-import '../../assets/styles/Footer.css'
+import Footer from './Footer'
 
-export default function Footer() {
-  return (
-    <footer className="fk-footer">
-      <Container>
-        <Row className="g-4 mb-4">
-          {/* Brand */}
-          <Col md={4}>
-            <div className="fk-footer-brand">
-              Fikretak
-            </div>
-            <p className="fk-footer-tagline">
-              Where ideas meet action. Building the future of collaboration between entrepreneurs and investors.
-            </p>
-          </Col>
-          <Col md={2} className="offset-md-2">
-            <h6>Product</h6>
-            <ul className="list-unstyled fk-footer-links">
-              <li><Link to="/register">Browse Ideas</Link></li>
-            </ul>
-          </Col>
-          <Col md={2}>
-            <h6>Company</h6>
-            <ul className="list-unstyled fk-footer-links">
-              <li><a href="#features">About</a></li>
-            </ul>
-          </Col>
-          <Col md={2}>
-            <h6>Legal</h6>
-            <ul className="list-unstyled fk-footer-links">
-              <li><Link to="/Contact">Contact</Link></li>
-            </ul>
-          </Col>
-        </Row>
-        <hr className="fk-footer-divider" />
-        <p className="fk-footer-copyright">
-          © {new Date().getFullYear()} Fikretak. All rights reserved. Built with{' '}
-          <i className="bi bi-heart-fill"></i> by the Fikretak Team.
-        </p>
-      </Container>
-    </footer>
-  )
+// Thin wrapper kept for the landing page's existing import path.
+export default function FooterLanding() {
+  return <Footer variant="landing" />
 }

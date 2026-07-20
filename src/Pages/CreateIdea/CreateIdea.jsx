@@ -52,7 +52,7 @@ export default function CreateIdea() {
       fundingGoal: form.fundingGoal ? Number(form.fundingGoal) : undefined,
     })
     addIdea(data.idea)
-    navigate(`/Browse-projects/${data.idea._id}`)
+    navigate(`/browse-projects/${data.idea._id}`)
   } catch (err) {
     setApiError(err.message)
   } finally {
@@ -283,7 +283,7 @@ export default function CreateIdea() {
                   <Button
                     variant="outline-secondary"
                     size="lg"
-                    onClick={() => navigate('/Browse-Projects')}
+                    onClick={() => navigate('/browse-projects')}
                     disabled={loading}
                     className="fk-createidea-cancelbtn">
                     Cancel

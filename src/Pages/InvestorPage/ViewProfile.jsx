@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Container, Row, Col, Spinner, Tab, Tabs } from 'react-bootstrap'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../Context/AuthContext'
-import IdeaCard from '../../Components/cards/IdeaCard'
+import IdeaCard from '../../Components/Cards/IdeaCard'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
 import '../../assets/styles/ViewProfile.css'
-import investorService from '../../../Services/investorServices'
+import investorService from '../../../Services/InvestorServices'
 
 
 export default function ViewProfile() {

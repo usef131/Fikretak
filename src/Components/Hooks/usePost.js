@@ -16,6 +16,10 @@ export default function usePost(post, user, onDelete) {
 
   const [commenting, setCommenting] = useState(false);
 
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+
   const initials = post.user?.name?.slice(0, 2).toUpperCase() || "U";
 
   const timeAgo = (date) => {
@@ -61,15 +65,22 @@ export default function usePost(post, user, onDelete) {
     }
   };
 
-  const handleDelete = async () => {
-    if (!window.confirm("Delete this post?")) return;
+  const requestDelete = () => {
+    setDeleteError("");
+    setConfirmOpen(true);
+  };
 
+  const confirmDelete = async () => {
+    setDeleting(true);
+    setDeleteError("");
     try {
       await postService.deletePost(post._id);
-
+      setConfirmOpen(false);
       onDelete?.(post._id);
     } catch (err) {
-      console.error(err);
+      setDeleteError("Failed to delete post. Please try again.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -93,7 +104,13 @@ export default function usePost(post, user, onDelete) {
 
     handleLike,
     handleComment,
-    handleDelete,
+
+    requestDelete,
+    confirmDelete,
+    confirmOpen,
+    setConfirmOpen,
+    deleting,
+    deleteError,
 
     toggleComments,
 

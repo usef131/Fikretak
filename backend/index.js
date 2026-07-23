@@ -1,4 +1,5 @@
 require('dotenv').config()
+const fs          = require('fs')
 const path        = require('path')
 const express     = require('express')
 const cors        = require('cors')
@@ -18,7 +19,21 @@ const uploadRoutes     = require('./Routes/upload')
 const app = express()
 
 // ── Security & core middleware ──
-app.use(helmet())
+// Tailored CSP so the single-service prod build can load Google Fonts,
+// Cloudinary/Unsplash images, and call the EmailJS API from the contact form.
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'img-src': ["'self'", 'data:', 'https:'],
+        'connect-src': ["'self'", 'https://api.emailjs.com'],
+        'font-src': ["'self'", 'https:', 'data:'],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+      },
+    },
+  }),
+)
 app.use(compression())
 
 const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
@@ -74,7 +89,19 @@ app.use('/api/uploads', uploadRoutes)
 // Health check
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', time: new Date() }))
 
-// 404
+// ── Serve the built React app (single-service deploy) ──
+// When a production build exists at ../dist, serve it and let the client
+// router handle any non-API/non-uploads path.
+const clientDist = path.join(__dirname, '..', 'dist')
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist))
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next()
+    res.sendFile(path.join(clientDist, 'index.html'))
+  })
+}
+
+// 404 (API routes / unmatched)
 app.use((_req, res) => res.status(404).json({ message: 'Route not found' }))
 
 // Global error handler

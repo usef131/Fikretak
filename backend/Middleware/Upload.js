@@ -27,7 +27,7 @@ if (isCloudinaryConfigured) {
 
 const upload = multer({
   storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  limits: { fileSize: 4 * 1024 * 1024 }, // 4 MB (stays under Vercel's serverless body limit)
   fileFilter: (_req, file, cb) => {
     if (file.mimetype.startsWith('image/')) cb(null, true);
     else cb(new Error('Only image files are allowed'), false);

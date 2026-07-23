@@ -9,6 +9,29 @@ Browser ──> Render web service ──> MongoDB Atlas
               (Express + React)  └─> Cloudinary (images)
 ```
 
+The repo supports **two hosts**: Vercel (serverless, no card — see below) and
+Render (single service — see the Render section). Both use the same Atlas +
+Cloudinary setup from steps 1–3.
+
+---
+
+## Deploy to Vercel (card-free)
+
+The React app is served statically and the Express API runs as a serverless
+function (`api/index.js` → `backend/app.js`), wired up by `vercel.json`.
+
+1. Do steps 1–3 below (Atlas, Cloudinary, JWT secret).
+2. https://vercel.com → sign up with **GitHub** (no card on the Hobby plan).
+3. **Add New… → Project** → import `Beshoy21/Fikretak`. Framework preset:
+   **Vite** (auto-detected). Leave build settings as-is — `vercel.json` handles them.
+4. Expand **Environment Variables** and add the same 5 secrets listed in the
+   Render table (`MONGO_URI`, `JWT_SECRET`, `CLOUDINARY_*`).
+5. **Deploy.** When done, open the URL → the app loads and `…/api/health`
+   returns `{ "status": "ok" }`.
+
+> Notes: Atlas Network Access must allow `0.0.0.0/0`. Uploads are capped at 4 MB
+> (Vercel's serverless body limit); images are stored on Cloudinary.
+
 ---
 
 ## 1. MongoDB Atlas (database) — you do this

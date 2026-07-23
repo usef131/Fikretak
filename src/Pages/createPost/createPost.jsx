@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../../Context/AuthContext'
 import { postService } from '../../../Services/postServices'
 import { Spinner } from 'react-bootstrap'
-import '../../assets/styles/CreatePost.css'
+import '../../assets/styles/createPost.css'
 
 export default function CreatePost({ onPostCreated }) {
   const { user } = useAuth()

@@ -85,18 +85,12 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
   message: { message: 'Too many requests, please try again later.' },
 })
-// Stricter limiter for auth to slow brute-force / credential stuffing
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { message: 'Too many attempts, please try again later.' },
-})
 app.use('/api', apiLimiter)
 
 // ── Routes ──
-app.use('/api/auth',  authLimiter, authRoutes)
+// The stricter brute-force limiter lives inside authRoutes and is scoped to
+// the login/register endpoints only (not /me, which the app polls on load).
+app.use('/api/auth',  authRoutes)
 app.use('/api/ideas', ideaRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/ideas/:id/investments', investmentRoutes)

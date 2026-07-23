@@ -1,0 +1,28 @@
+# Render blueprint — single web service that builds the React app and serves
+# it from the Express API (same origin, no CORS). See DEPLOY.md for setup.
+services:
+  - type: web
+    name: fikretak
+    runtime: node
+    plan: free
+    # Build the frontend (-> ./dist) and install backend deps.
+    buildCommand: npm install && npm run build && npm install --prefix backend
+    # Express serves ../dist and the /api routes. Render injects PORT.
+    startCommand: node backend/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_EXPIRES_IN
+        value: "7d"
+      # Set these in the Render dashboard (Environment tab) — never commit them:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false

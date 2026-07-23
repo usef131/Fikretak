@@ -124,7 +124,7 @@ export default function EditProfile() {
                           className="field-input"
                         />
                         <Form.Text className="field-hint--no-indent">
-                          {avatarUploading ? 'Uploading…' : 'PNG, JPG or WEBP, up to 5 MB'}
+                          {avatarUploading ? 'Uploading…' : 'PNG, JPG or WEBP, up to 4 MB'}
                         </Form.Text>
                       </div>
                     </div>

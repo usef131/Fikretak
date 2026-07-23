@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { ideaService } from '../../../Services/ideaService'
+import { uploadService } from '../../../Services/uploadService'
 import { useIdeas } from '../../../Context/IdeaContext'
 import '../../assets/styles/CreateIdea.css'
 
@@ -46,9 +47,15 @@ export default function CreateIdea() {
   if (Object.keys(errs).length) { setErrors(errs); return }
   setLoading(true); setApiError('')
   try {
+    let imageUrl
+    if (imageFile) {
+      const uploaded = await uploadService.uploadImage(imageFile)
+      imageUrl = uploaded.url
+    }
     const data = await ideaService.createIdea({
       ...form,
-      image: imageFile, roadmap,
+      ...(imageUrl ? { image: imageUrl } : {}),
+      roadmap,
       fundingGoal: form.fundingGoal ? Number(form.fundingGoal) : undefined,
     })
     addIdea(data.idea)
@@ -259,9 +266,7 @@ export default function CreateIdea() {
                       const file = e.target.files[0]
                       if (!file) return
                       setPreview(URL.createObjectURL(file))
-                      const reader = new FileReader()
-                      reader.onloadend = () => setImageFile(reader.result) // Base64
-                      reader.readAsDataURL(file)
+                      setImageFile(file) // uploaded to /api/uploads on submit
                     }}
                     className="fk-createidea-input"/>
                   {preview && (

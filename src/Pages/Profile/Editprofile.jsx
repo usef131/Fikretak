@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { useAuth } from '../../../Context/AuthContext'
 import { authService } from '../../../Services/authService'
+import { uploadService } from '../../../Services/uploadService'
 import { FiArrowLeft } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import SecondNavbar from '../../Components/Common/SecondNavbar'
@@ -16,6 +17,7 @@ export default function EditProfile() {
 
   const [form, setForm] = useState({
     name:       user?.name       || '',
+    avatar:     user?.avatar     || '',
     bio:        user?.bio        || '',
     location:   user?.location   || '',
     linkedin:   user?.linkedin   || '',
@@ -29,11 +31,31 @@ export default function EditProfile() {
     website:    user?.website    || '',
   })
 
-  const [saving,    setSaving]    = useState(false)
-  const [saved,     setSaved]     = useState(false)
-  const [saveError, setSaveError] = useState('')
+  const [saving,        setSaving]        = useState(false)
+  const [saved,         setSaved]         = useState(false)
+  const [saveError,     setSaveError]     = useState('')
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || '')
+  const [avatarUploading, setAvatarUploading] = useState(false)
 
   const set = (key, val) => setForm(p => ({ ...p, [key]: val }))
+
+  const initials = user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'U'
+
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setAvatarPreview(URL.createObjectURL(file))
+    setAvatarUploading(true)
+    setSaveError('')
+    try {
+      const { url } = await uploadService.uploadImage(file)
+      set('avatar', url)
+    } catch (err) {
+      setSaveError(err.response?.data?.message || 'Image upload failed')
+    } finally {
+      setAvatarUploading(false)
+    }
+  }
 
   const toggleSector = (s) => {
     set('sectors', form.sectors.includes(s)
@@ -83,6 +105,31 @@ export default function EditProfile() {
                   <p className="section-label">
                     Basic Info
                   </p>
+
+                  {/* Avatar */}
+                  <Form.Group className="mb-3">
+                    <Form.Label className="field-label">Profile Photo</Form.Label>
+                    <div className="edit-avatar-row">
+                      <div className="edit-avatar-preview">
+                        {avatarPreview
+                          ? <img src={avatarPreview} alt="avatar preview" />
+                          : <span>{initials}</span>}
+                      </div>
+                      <div>
+                        <Form.Control
+                          type="file"
+                          accept="image/*"
+                          onChange={handleAvatarChange}
+                          disabled={avatarUploading}
+                          className="field-input"
+                        />
+                        <Form.Text className="field-hint--no-indent">
+                          {avatarUploading ? 'Uploading…' : 'PNG, JPG or WEBP, up to 5 MB'}
+                        </Form.Text>
+                      </div>
+                    </div>
+                  </Form.Group>
+
                   <Form.Group className="mb-3">
                     <Form.Label className="field-label">Full Name</Form.Label>
                     <Form.Control value={form.name || ''} onChange={e => set('name', e.target.value)} className="field-input"/>

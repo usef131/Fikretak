@@ -222,3 +222,22 @@
   font-size: 0.875rem;
   margin: 0;
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .idea-details-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .idea-title { font-size: 1.5rem; }
+  .funding-goal-amount { font-size: 2rem; }
+  .idea-image-wrapper { height: 220px; }
+  .roadmap-card { padding: 1.5rem; }
+  .roadmap-title { margin-bottom: 1.5rem; }
+  /* Roadmap uses <Col> without a breakpoint, so it never stacks — force it */
+  .roadmap-card .row > [class*="col"] {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+}

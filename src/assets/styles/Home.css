@@ -363,3 +363,18 @@
   color: #0f1117;
   transform: translateY(-2px);
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero-title {
+    text-align: center !important;
+    margin-left: 0 !important;
+    align-self: center !important;
+  }
+  .roles-card {
+    margin-left: 0;
+    margin-top: 2rem;
+    padding: 1.75rem;
+  }
+  .cta-section { padding: 4rem 1.25rem; }
+}

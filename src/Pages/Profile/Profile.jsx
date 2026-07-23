@@ -80,7 +80,7 @@ export default function Profile() {
 
             <div className="profile-card-header">
               <div className="fk-avatar profile-avatar">
-                {initials}
+                {user?.avatar ? <img src={user.avatar} alt="avatar" /> : initials}
               </div>
               <div className="profile-header-actions">
                 <button

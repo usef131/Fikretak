@@ -1,4 +1,5 @@
 require('dotenv').config()
+const path        = require('path')
 const express     = require('express')
 const cors        = require('cors')
 const helmet      = require('helmet')
@@ -12,6 +13,7 @@ const authRoutes       = require('./Routes/auth')
 const ideaRoutes       = require('./Routes/ideas')
 const userRoutes       = require('./Routes/Investors')
 const investmentRoutes = require('./Routes/investment')
+const uploadRoutes     = require('./Routes/upload')
 
 const app = express()
 
@@ -29,9 +31,19 @@ app.use(cors({
   credentials: true,
 }))
 
-app.use(express.json({ limit: '10mb' }))
-app.use(express.urlencoded({ extended: true, limit: '10mb' }))
+app.use(express.json({ limit: '1mb' })) // images go through /api/uploads, not JSON
+app.use(express.urlencoded({ extended: true, limit: '1mb' }))
 app.use(sanitize) // strip NoSQL operator injection from all input
+
+// Serve uploaded images (allow the frontend origin to load them)
+app.use(
+  '/uploads',
+  (_req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
+    next()
+  },
+  express.static(path.join(__dirname, 'uploads')),
+)
 
 // ── Rate limiting ──
 const apiLimiter = rateLimit({
@@ -57,6 +69,7 @@ app.use('/api/ideas', ideaRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/ideas/:id/investments', investmentRoutes)
 app.use('/api/posts', postRoutes)
+app.use('/api/uploads', uploadRoutes)
 
 // Health check
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', time: new Date() }))

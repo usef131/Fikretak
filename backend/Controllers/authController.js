@@ -70,7 +70,7 @@ exports.updateMe = async (req, res) => {
   try {
     // Whitelist of self-editable fields (role/email/password not editable here)
     const allowed = [
-      "name", "bio", "location", "linkedin", "sectors",
+      "name", "avatar", "bio", "location", "linkedin", "sectors",
       "ticketSize", "experience", "startup", "stage", "website",
     ];
     const updates = {};

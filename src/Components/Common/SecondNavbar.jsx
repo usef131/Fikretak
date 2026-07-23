@@ -71,7 +71,9 @@ function SecondNavbar() {
                     <div className="d-flex align-items-center gap-3 ms-lg-3">
 
                         <Link to="/profile" className="nav-avatar">
-                            {user?.name?.slice(0, 2).toUpperCase() || "U"}
+                            {user?.avatar
+                                ? <img src={user.avatar} alt="profile" />
+                                : (user?.name?.slice(0, 2).toUpperCase() || "U")}
                         </Link>
 
                         <button

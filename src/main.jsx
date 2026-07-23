@@ -8,6 +8,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 // Global overrides
 import './assets/styles/global.css'
+import './assets/styles/responsive.css'
 
 // AuthProvider is supplied inside App.jsx — do not double-wrap here.
 ReactDOM.createRoot(document.getElementById('root')).render(

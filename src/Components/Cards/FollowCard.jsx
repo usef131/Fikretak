@@ -17,7 +17,9 @@ export default function FollowCard({ person, onUnfollow }) {
         <Card className="investor-card h-100 border-0">
             <Card.Body className="investor-card__body d-flex flex-column">
                 <div className="investor-card__header">
-                    <div className="investor-card__avatar">{initials}</div>
+                    <div className="investor-card__avatar">
+                        {person.avatar ? <img src={person.avatar} alt="avatar" /> : initials}
+                    </div>
                     <div>
                         <p className="investor-card__name">{person.name}</p>
                         <span className="investor-card__badge">

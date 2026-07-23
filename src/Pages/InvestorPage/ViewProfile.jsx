@@ -117,7 +117,7 @@ export default function ViewProfile() {
 
                         <div className="vp-avatar-row">
                             <div className={`fk-avatar vp-avatar`}>
-                                {initials}
+                                {profile.avatar ? <img src={profile.avatar} alt="avatar" /> : initials}
                             </div>
 
                             {!isOwnProfile && (

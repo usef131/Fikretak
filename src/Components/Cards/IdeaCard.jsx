@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../Context/AuthContext'
 import { ideaService } from '../../../Services/ideaService'
 import { useIdeas } from '../../../Context/IdeaContext'
+import ConfirmDialog from '../Common/ConfirmDialog'
 
 const STATUS_STYLES = {
   prototype: 'fk-status-prototype',
@@ -27,15 +29,23 @@ export default function IdeaCard({ idea }) {
   const navigate = useNavigate()
   const { fetchMyIdeas } = useIdeas()
 
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+
 const isOwner = user?._id && String(user._id) === String(idea.entrepreneur?._id ?? idea.entrepreneur)
 
-  const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this idea?')) return
+  const confirmDelete = async () => {
+    setDeleting(true)
+    setDeleteError('')
     try {
       await ideaService.deleteIdea(idea._id)
+      setShowConfirm(false)
       fetchMyIdeas()
     } catch (err) {
-      alert('Failed to delete idea')
+      setDeleteError('Failed to delete idea. Please try again.')
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -47,6 +57,7 @@ const isOwner = user?._id && String(user._id) === String(idea.entrepreneur?._id 
     : idea.fundingProgress || 0
 
   return (
+    <>
     <div className="fk-card h-100 p-4 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-3">
         <span style={{
@@ -127,7 +138,8 @@ const isOwner = user?._id && String(user._id) === String(idea.entrepreneur?._id 
             </button>
 
             <button
-              onClick={handleDelete}
+              onClick={() => { setDeleteError(''); setShowConfirm(true) }}
+              aria-label="Delete idea"
               style={{
                 borderRadius: 'var(--radius-pill)', fontWeight: 600, fontSize: '0.82rem',
                 padding: '4px 12px', border: '1.5px solid #fee2e2',
@@ -140,5 +152,18 @@ const isOwner = user?._id && String(user._id) === String(idea.entrepreneur?._id 
         )}
       </div>
     </div>
+
+    <ConfirmDialog
+      show={showConfirm}
+      variant="danger"
+      title="Delete this idea?"
+      message={`"${idea.title}" will be permanently removed. This can't be undone.`}
+      confirmLabel="Delete"
+      loading={deleting}
+      error={deleteError}
+      onConfirm={confirmDelete}
+      onCancel={() => setShowConfirm(false)}
+    />
+    </>
   )
 }

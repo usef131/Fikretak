@@ -1,5 +1,6 @@
 import { useAuth } from "../../../Context/AuthContext";
 import usePost from "../Hooks/usePost";
+import ConfirmDialog from "../Common/ConfirmDialog";
 
 import heartIcon from "../../assets/images/heart.png";
 import redHeartIcon from "../../assets/images/redHeart.png";
@@ -21,7 +22,12 @@ export default function PostCard({ post, onDelete }) {
   setCommentText,
   handleLike,
   handleComment,
-  handleDelete,
+  requestDelete,
+  confirmDelete,
+  confirmOpen,
+  setConfirmOpen,
+  deleting,
+  deleteError,
   toggleComments,
   timeAgo,
 } = usePost(post, user, onDelete);
@@ -56,7 +62,8 @@ export default function PostCard({ post, onDelete }) {
         {user?._id === post.user?._id && (
           <button
             className="fk-delete"
-            onClick={handleDelete}
+            onClick={requestDelete}
+            aria-label="Delete post"
           >
             <i className="bi bi-trash3-fill"></i>
           </button>
@@ -169,6 +176,18 @@ export default function PostCard({ post, onDelete }) {
         </div>
 
       )}
+
+      <ConfirmDialog
+        show={confirmOpen}
+        variant="danger"
+        title="Delete this post?"
+        message="This post will be permanently removed. This can't be undone."
+        confirmLabel="Delete"
+        loading={deleting}
+        error={deleteError}
+        onConfirm={confirmDelete}
+        onCancel={() => setConfirmOpen(false)}
+      />
 
     </div>
   );

@@ -96,6 +96,9 @@
     border: none;
     border-top: 0.5px solid #e5e7eb;
     margin: 0;
+    /* Push the divider + actions to the bottom so every card's
+       "View profile" button aligns regardless of content length */
+    margin-top: auto;
 }
 
 .investor-card__actions {

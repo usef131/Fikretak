@@ -3,12 +3,21 @@ const Post = require('../Models/posts')
 // GET /api/posts
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find()
-      .sort({ createdAt: -1 })
-      .populate("user", "name avatar")
-      .populate("comments.user", "name avatar");
+    const page  = Math.max(1, Number(req.query.page) || 1);
+    const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 20));
+    const skip  = (page - 1) * limit;
 
-    res.json({ posts })
+    const [posts, total] = await Promise.all([
+      Post.find()
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate("user", "name avatar")
+        .populate("comments.user", "name avatar"),
+      Post.countDocuments(),
+    ]);
+
+    res.json({ posts, total, page, pages: Math.ceil(total / limit) })
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

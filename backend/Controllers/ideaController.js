@@ -1,4 +1,4 @@
-const Idea = require("../models/Idea");
+const Idea = require("../Models/Idea");
 
 // GET /api/ideas
 exports.getIdeas = async (req, res) => {
@@ -139,9 +139,9 @@ exports.updateIdea = async (req, res) => {
     if (idea.entrepreneur.toString() !== req.user._id.toString())
       return res.status(403).json({ message: 'Not authorized' })
 
-     allowed = [
+    const allowed = [
       'title', 'summary', 'description', 'category',
-      'targetMarket', 'fundingGoal', 'image', 'teamMembers'
+      'targetMarket', 'fundingGoal', 'image', 'teamMembers', 'roadmap'
     ]
     allowed.forEach(field => { if (req.body[field] !== undefined) idea[field] = req.body[field] })
 

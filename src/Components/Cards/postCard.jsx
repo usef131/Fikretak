@@ -35,8 +35,8 @@ export default function PostCard({ post, onDelete }) {
         <div className="fk-post-avatar">
           {post.user?.avatar ? (
             <img
-              src={`http://localhost:5002${post.user.avatar}`}
-              alt="avatar"
+              src={post.user.avatar}
+              alt={`${post.user?.name || 'User'} avatar`}
             />
           ) : (
             initials

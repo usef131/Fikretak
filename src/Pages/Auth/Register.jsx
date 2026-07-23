@@ -48,7 +48,7 @@ export default function Register() {
     setApiError('')
     try {
       await register({ name: form.name, email: form.email, password: form.password, role: form.role })
-      navigate('/Home-two')
+      navigate('/home-two')
     } catch (e) {
       setApiError(e.message)
       setStep(1)
@@ -152,11 +152,11 @@ export default function Register() {
             <div>
               {/* Step indicator */}
               <div className="text-center mb-2">
-                <span className="reg-step-badge">Step 2 of 3</span>
+                <span className="reg-step-badge">Step 2 of 2</span>
               </div>
 
               <h2 className="reg-s2-title">Tell us about yourself</h2>
-              <p className="reg-s2-sub">Select one or more roles that best describe you</p>
+              <p className="reg-s2-sub">Select the role that best describes you</p>
 
               {apiError && (
                 <Alert variant="danger" className="reg-alert mb-3">{apiError}</Alert>

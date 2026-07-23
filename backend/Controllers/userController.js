@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../Models/User");
 
 exports.getInvestors = async (req, res) => {
   try {

@@ -51,6 +51,11 @@ const ideaSchema = new mongoose.Schema(
 
 // Text search index
 ideaSchema.index({ title: "text", summary: "text", description: "text" });
+// Query indexes for common access patterns
+ideaSchema.index({ entrepreneur: 1, createdAt: -1 });
+ideaSchema.index({ category: 1 });
+ideaSchema.index({ interestedInvestors: 1 });
+ideaSchema.index({ createdAt: -1 });
 
 // Keep interestCount in sync
 ideaSchema.pre("save", function (next) {

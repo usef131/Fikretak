@@ -86,10 +86,10 @@ const isOwner = user?._id && String(user._id) === String(idea.entrepreneur?._id 
         <span>
           <i className="bi bi-people me-1" style={{ color: 'var(--fk-text-muted)' }} />
           <span style={{ fontWeight: 500, color: 'var(--fk-text-primary)', fontSize: '0.8rem' }}>
-            {idea.teamSize || idea.entrepreneur?.teamSize || '1'}
+            {idea.teamMembers || 1}
           </span>
           <span style={{ color: 'var(--fk-text-muted)', marginLeft: 2 }}>
-            {(idea.teamSize || 1) === 1 ? 'member' : 'members'}
+            {(idea.teamMembers || 1) === 1 ? 'member' : 'members'}
           </span>
         </span>
       </div>

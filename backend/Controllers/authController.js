@@ -1,35 +1,42 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../Models/User");
 
-// create a function to sign a JWT token with the user's id and a secret key, and set an expiration time for the token
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Sign a JWT with the user's id. Algorithm pinned to prevent alg-confusion.
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
+    algorithm: "HS256",
     expiresIn: process.env.JWT_EXPIRES_IN || "7d",
   });
 
-// first controller
 exports.register = async (req, res) => {
   try {
-    // get the name, email, password, and role from the request body
     const { name, email, password, role } = req.body;
 
-    // check if the email is already registered, if yes then return 400 error
-    if (await User.findOne({ email }))
-      return res.status(400).json({ message: "Email already registered" });
+    // Basic input validation
+    if (!name?.trim() || !email?.trim() || !password) {
+      return res.status(400).json({ message: "Name, email and password are required" });
+    }
+    if (!EMAIL_RE.test(email)) {
+      return res.status(400).json({ message: "Invalid email address" });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    }
 
-    const allowedRoles = [
-      "entrepreneur",
-      "investor",
-    ];
-
-    if (!allowedRoles.includes(role))
+    const allowedRoles = ["entrepreneur", "investor"];
+    if (!allowedRoles.includes(role)) {
       return res.status(400).json({ message: "Invalid role" });
+    }
 
-    // create a new user with the provided data
+    if (await User.findOne({ email: email.toLowerCase() })) {
+      return res.status(409).json({ message: "Email already registered" });
+    }
+
     const user = await User.create({ name, email, password, role });
     const token = signToken(user._id);
-
-    // send the user data and token back to the client (201 Created)
+    // toJSON transform strips the password hash
     res.status(201).json({ user, token });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -39,12 +46,14 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password)
+    if (!email || !password) {
       return res.status(400).json({ message: "Email and password required" });
+    }
 
-    const user = await User.findOne({ email }).select("+password");
-    if (!user || !(await user.comparePassword(password)))
+    const user = await User.findOne({ email: String(email).toLowerCase() }).select("+password");
+    if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ message: "Invalid email or password" });
+    }
 
     const token = signToken(user._id);
     res.json({ user, token });
@@ -59,16 +68,22 @@ exports.getMe = async (req, res) => {
 
 exports.updateMe = async (req, res) => {
   try {
-    const { name, bio, location, linkedin, sectors, ticketSize, experience, startup, stage, website } = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { name, bio, location, linkedin, sectors, ticketSize, experience, startup, stage, website },
-      { new: true, runValidators: true },
-    );
+    // Whitelist of self-editable fields (role/email/password not editable here)
+    const allowed = [
+      "name", "avatar", "bio", "location", "linkedin", "sectors",
+      "ticketSize", "experience", "startup", "stage", "website",
+    ];
+    const updates = {};
+    for (const field of allowed) {
+      if (req.body[field] !== undefined) updates[field] = req.body[field];
+    }
+
+    const user = await User.findByIdAndUpdate(req.user._id, updates, {
+      new: true,
+      runValidators: true,
+    });
     res.json({ user });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
-
-

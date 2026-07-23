@@ -63,7 +63,7 @@ export default function ContactPage() {
 
           {/* Contact Cards */}
           <div className={styles.cardsList}>
-            <a href="mailto:johnnykyorov@gmail.com" className={styles.card}>
+            <a href="mailto:Fikretak011@gmail.com" className={styles.card}>
               <div className={styles.cardLeft}>
                 <div className={styles.iconBox}>
                   <Mail size={20} color="#60a5fa" />
@@ -78,7 +78,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <a href="tel:5011234567" className={styles.card}>
+            <a href="tel:+201277488479" className={styles.card}>
               <div className={styles.cardLeft}>
                 <div className={styles.iconBox}>
                   <Phone size={20} color="#60a5fa" />

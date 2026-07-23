@@ -59,7 +59,7 @@ export default function Home() {
       <section className="hero-section">
         <Container className="d-flex flex-column align-items-center text-center">
 
-          <h1 className="hero-title" style={{ alignSelf: 'flex-start', marginLeft: '8%', color: '#fff', WebkitTextFillColor: '#fff' }}>
+          <h1 className="hero-title" style={{ color: '#fff', WebkitTextFillColor: '#fff' }}>
             Your Ideas Accelerated
           </h1>
 

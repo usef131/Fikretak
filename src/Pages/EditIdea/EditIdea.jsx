@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import { ideaService } from '../../../Services/ideaService'
+import { uploadService } from '../../../Services/uploadService'
 import { useIdeas } from '../../../Context/IdeaContext'
 import '../../assets/styles/Editidea.css'
 
@@ -37,7 +38,7 @@ export default function EditIdea() {
           category:     idea.category     || '',
           targetMarket: idea.targetMarket || '',
           fundingGoal:  idea.fundingGoal  || '',
-          teamMembers:  idea.teamSize     || idea.teamMembers || '',
+          teamMembers:  idea.teamMembers  || '',
         })
         if (idea.roadmap?.length) setRoadmap(idea.roadmap)
         if (idea.image) setPreview(idea.image)
@@ -71,9 +72,7 @@ export default function EditIdea() {
     const file = e.target.files[0]
     if (!file) return
     setPreview(URL.createObjectURL(file))
-    const reader = new FileReader()
-    reader.onloadend = () => setImageFile(reader.result)
-    reader.readAsDataURL(file)
+    setImageFile(file) // uploaded to /api/uploads on submit
   }
 
   const handleSubmit = async (e) => {
@@ -83,9 +82,14 @@ export default function EditIdea() {
     setLoading(true)
     setApiError('')
     try {
+      let imageUrl
+      if (imageFile) {
+        const uploaded = await uploadService.uploadImage(imageFile)
+        imageUrl = uploaded.url
+      }
       await ideaService.updateIdea(id, {
         ...form,
-        ...(imageFile ? { image: imageFile } : {}),
+        ...(imageUrl ? { image: imageUrl } : {}),
         roadmap,
         fundingGoal: form.fundingGoal ? Number(form.fundingGoal) : undefined,
       })

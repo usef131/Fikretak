@@ -176,3 +176,8 @@
     font-size: 0.78rem;
     color: var(--fk-text-muted);
 }
+
+/* ── Responsive ── */
+@media (max-width: 400px) {
+    .reg-role-grid { grid-template-columns: 1fr; }
+}

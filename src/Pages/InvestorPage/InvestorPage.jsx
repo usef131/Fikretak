@@ -1,12 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import InvestorCard from "../../Components/cards/InvestorCard";
-import axios from "axios";
+import InvestorCard from "../../Components/Cards/InvestorCard";
 import SecondNavbar from "../../Components/Common/SecondNavbar";
 import { useAuth } from "../../../Context/AuthContext";
 import "../../assets/styles/InvestorPage.css";
-import investorService from "../../../Services/investorServices";
+import investorService from "../../../Services/InvestorServices";
 
 const ALL_SECTORS = [
   "All",

@@ -10,7 +10,12 @@ import "../../assets/styles/navbar.css";
 
 function SecondNavbar() {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
 
     return (
         <Navbar
@@ -40,7 +45,7 @@ function SecondNavbar() {
                     {/* NAV LINKS */}
                     <Nav className="mx-auto gap-1 align-items-center">
 
-                        <NavLink to="/Home-Two" className="nav-link-custom">
+                        <NavLink to="/home-two" className="nav-link-custom">
                             <FiHome size={17} />
                             Home
                         </NavLink>
@@ -66,12 +71,15 @@ function SecondNavbar() {
                     <div className="d-flex align-items-center gap-3 ms-lg-3">
 
                         <Link to="/profile" className="nav-avatar">
-                            {user?.name?.slice(0, 2).toUpperCase() || "U"}
+                            {user?.avatar
+                                ? <img src={user.avatar} alt="profile" />
+                                : (user?.name?.slice(0, 2).toUpperCase() || "U")}
                         </Link>
 
                         <button
                             className="nav-logout-btn"
-                            onClick={() => navigate("/login")}
+                            onClick={handleLogout}
+                            aria-label="Log out"
                         >
                             <FiLogOut size={18} color="#dc3545" />
                         </button>

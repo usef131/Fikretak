@@ -217,3 +217,25 @@
   cursor: pointer;
   font-weight: 600;
 }
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .profile-container { width: 75%; }
+}
+@media (max-width: 992px) {
+  .profile-container { width: 90%; }
+}
+@media (max-width: 768px) {
+  .profile-container {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  /* Stat cards wrap 2-per-row instead of cramming 4 across */
+  .profile-stats-row .col { flex: 0 0 calc(50% - 1rem); }
+  .profile-card-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .profile-header-actions { padding-bottom: 0; }
+}
+@media (max-width: 480px) {
+  .profile-avatar { width: 88px; height: 88px; font-size: 2rem; }
+}

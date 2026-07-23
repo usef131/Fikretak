@@ -11,4 +11,7 @@ const investmentSchema = new mongoose.Schema({
   message:    { type: String, default: '' },
 }, { timestamps: true })
 
+investmentSchema.index({ idea: 1, createdAt: -1 })
+investmentSchema.index({ investor: 1 })
+
 module.exports = mongoose.model('Investment', investmentSchema)

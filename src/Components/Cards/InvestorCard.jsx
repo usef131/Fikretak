@@ -22,7 +22,9 @@ export default function InvestorCard({ investor }) {
             <Card.Body className="investor-card__body d-flex flex-column">
                 {/* Top: avatar + name */}
                 <div className="investor-card__header">
-                    <div className="investor-card__avatar">{initials}</div>
+                    <div className="investor-card__avatar">
+                        {investor.avatar ? <img src={investor.avatar} alt="avatar" /> : initials}
+                    </div>
                     <div>
                         <p className="investor-card__name">{investor.name}</p>
                         <span className="investor-card__badge">Investor</span>

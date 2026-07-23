@@ -1,15 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Button, Badge, Stack, Image, Table } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Table } from "react-bootstrap";
 import SecondNavbar from "../../Components/Common/SecondNavbar";
 import Footer from "../../Components/Common/Footer";
 import PageTransition from "./PageTransition";
 import FeaturedStartupRow from "../../Components/Cards/FeaturedStartupRow";
 import "../../assets/styles/HomeTwo.css";
 import PostCard from "../../Components/Cards/postCard";
-import { FaHeart, FaRegCommentDots, FaArrowRight } from "react-icons/fa";
-import { postService } from "../../../Services/postServices";
 import api from "../../../Services/api";
 
 const NAVY = "#0f2744";
@@ -25,24 +23,19 @@ export default function HomePageTwo() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [startups, setStartups] = useState([]);
-  const [search, setSearch] = useState("");
   const [posts, setPosts] = useState([]);
 
 
   useEffect(() => {
     api.get("/posts")
-      .then(data => {
-        console.log("posts from API:", data)
-        setPosts(data.posts || data)
-      })
+      .then(data => setPosts(data.posts || []))
       .catch(err => console.error('Failed to fetch posts:', err))
   }, [])
 
   useEffect(() => {
     api.get("/ideas")
-      .then(data => {
-        setStartups(data.ideas || data);
-      });
+      .then(data => setStartups(data.ideas || []))
+      .catch(err => console.error('Failed to fetch ideas:', err));
   }, []);
 
   return (
@@ -325,7 +318,7 @@ export default function HomePageTwo() {
 
           <Button
             className="investor-btn"
-            onClick={() => navigate("/ideas")}
+            onClick={() => navigate("/browse-projects")}
           >
             Explore Opportunities
           </Button>

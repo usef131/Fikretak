@@ -1,0 +1,44 @@
+/* =============================
+   Fikretak – Global responsive layer
+   Cross-cutting mobile safeguards. Page-specific breakpoints live in
+   each page's own stylesheet so they win on source order.
+   ============================= */
+
+/* Never allow the page body to scroll sideways on small screens */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Media scales within its container by default */
+img, svg, video { max-width: 100%; }
+
+/* Tablet and below */
+@media (max-width: 992px) {
+  .section { padding: 3.5rem 0; }
+}
+
+/* Phone and below */
+@media (max-width: 768px) {
+  /* Tame the large marketing vertical paddings */
+  .cta,
+  .cta-section,
+  .hero-section,
+  .features-section,
+  .about-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+
+  .section,
+  .section-sm { padding: 2.5rem 0; }
+
+  /* Large display headings shouldn't dominate small screens */
+  .section-title,
+  .about-title,
+  .cta-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+
+  /* Decorative rings can overflow their section on mobile */
+  .cta-rings,
+  .rings { width: 420px; height: 420px; }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .cta-rings,
+  .rings { width: 320px; height: 320px; }
+}

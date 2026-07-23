@@ -41,7 +41,7 @@ export default function CreatePost({ onPostCreated }) {
 
         {/* Input */}
         <form onSubmit={handleSubmit} className="create-post-form">
-          <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Share your thoughts..." rows={3} className="create-post-textarea" />
+          <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Share your thoughts..." rows={3} maxLength={1000} className="create-post-textarea" />
           {error && <p className="create-post-error">{error}</p>}
           <div className="create-post-footer">
             <span className={`create-post-char-count ${text.length > 900 ? 'over-limit' : ''}`}>

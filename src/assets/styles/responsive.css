@@ -42,3 +42,23 @@ img, svg, video { max-width: 100%; }
   .cta-rings,
   .rings { width: 320px; height: 320px; }
 }
+
+/* =============================
+   Cross-cutting mobile safeguards
+   ============================= */
+@media (max-width: 768px) {
+  /* Long unbroken strings (emails, URLs, wallet-style IDs) must wrap
+     instead of forcing the page to scroll sideways. */
+  body { overflow-wrap: break-word; }
+  h1, h2, h3 { overflow-wrap: break-word; }
+
+  /* Any leftover horizontal-scroll table stays swipeable without
+     dragging the whole page with it. */
+  .table-responsive { -webkit-overflow-scrolling: touch; }
+
+  /* Bootstrap modals: full-width with a small gutter on phones. */
+  .modal-dialog {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}

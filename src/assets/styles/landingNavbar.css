@@ -43,3 +43,44 @@
   transform: translateY(-1px);
   opacity: 0.95;
 }
+
+/* ─────────────────────────────
+   MOBILE — keep brand + auth buttons on a single tidy row
+   (default flex-wrap made it stack into a tall 2-row navbar)
+───────────────────────────── */
+@media (max-width: 575.98px) {
+  .fk-navbar .container {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .fk-navbar .fk-navbar-brand {
+    font-size: 15px;
+    white-space: nowrap;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fk-auth-actions {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .fk-btn-outline,
+  .fk-btn-primary {
+    padding: 5px 12px !important;
+    font-size: 12.5px !important;
+  }
+}
+
+/* Very small phones — trim further so nothing overflows */
+@media (max-width: 360px) {
+  .fk-navbar .fk-navbar-brand { font-size: 13.5px; }
+  .fk-btn-outline,
+  .fk-btn-primary {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+}

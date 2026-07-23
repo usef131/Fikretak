@@ -347,4 +347,76 @@ button.main-btn.white-btn {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+
+  /* ── Featured Startups: turn the 6-column table into stacked cards ──
+     A cramped horizontal-scroll table is unusable on a phone, so each
+     row becomes a self-contained card with label:value pairs. */
+  .featured-card { background: transparent; box-shadow: none; }
+
+  .featured-table { border-spacing: 0 !important; }
+
+  .featured-table thead { display: none; }
+
+  .featured-table,
+  .featured-table tbody,
+  .featured-row,
+  .featured-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .featured-row {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 6px 4px;
+    margin-bottom: 14px;
+  }
+
+  .featured-table td {
+    padding: 10px 16px !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  /* Label pulled from each cell's data-label */
+  .featured-table td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #9aa1ac;
+    flex-shrink: 0;
+  }
+
+  /* Primary cell (startup name) reads as the card header — no label,
+     full-width, with a divider under it */
+  .featured-table td.fs-cell-primary {
+    justify-content: flex-start;
+    border-bottom: 1px solid #f1f3f6 !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 2px;
+  }
+  .featured-table td.fs-cell-primary::before { display: none; }
+
+  /* Description can be long — let it wrap under its label */
+  .featured-table td[data-label="Description"] {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* Progress bar should stretch, not sit squished on the right */
+  .featured-table td[data-label="Progress"] { flex-wrap: wrap; }
+  .featured-table td[data-label="Progress"] .progress { width: 60%; }
+
+  /* Action buttons align right and stay comfortably tappable */
+  .featured-table td.fs-cell-actions .d-flex { justify-content: flex-end !important; width: 100%; }
 }

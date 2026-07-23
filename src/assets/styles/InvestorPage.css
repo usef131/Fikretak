@@ -144,3 +144,28 @@
 .clear-btn:hover {
   background: #f3f4f6;
 }
+
+/* ── Responsive ──
+   The base .investors-container uses `padding: 2rem 0`, which strips the
+   horizontal padding Bootstrap normally gives .container. On phones that
+   makes the header, filters and cards run edge-to-edge, so restore it. */
+@media (max-width: 991px) {
+  .investors-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header h1 { font-size: 20px; }
+  .search-box { min-width: 0; flex: 1 1 100%; }
+  .sector-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .sector-pills::-webkit-scrollbar { display: none; }
+  .sector-btn { flex-shrink: 0; }
+}

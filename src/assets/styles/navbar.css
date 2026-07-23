@@ -111,3 +111,39 @@
   background: #f8f9fa;
   transform: scale(1.05);
 }
+
+/* =========================
+   MOBILE — collapsed menu
+========================= */
+@media (max-width: 991.98px) {
+  /* Give the dropped-down menu room to breathe */
+  .navbar-collapse {
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+
+  /* Bigger, easier-to-tap links; drop the centering so they read as a list */
+  .navbar .nav-link-custom {
+    padding: 12px 12px;
+    font-size: 15px;
+  }
+  .navbar .navbar-nav.mx-auto {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* The active underline bar looks odd on a stacked list — soften it
+     into a left highlight instead */
+  .nav-link-custom.active::after { display: none; }
+  .nav-link-custom.active {
+    background: rgba(13, 110, 253, 0.06);
+    border-radius: 8px;
+  }
+
+  /* Separate the avatar + logout row from the links */
+  .navbar-collapse .d-flex.align-items-center {
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eef0f3;
+  }
+}

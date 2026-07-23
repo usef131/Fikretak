@@ -18,8 +18,8 @@ export default function FeaturedStartupRow({ startup, NAVY, navigate, role }) {
      const [showInvest, setShowInvest] = useState(false)
     return (
         <>
-        <tr>
-            <td className="ps-4">
+        <tr className="featured-row">
+            <td className="ps-4 fs-cell-primary" data-label="Startup">
                 <div className="d-flex align-items-center gap-3">
                     <div style={{
                         width: 42, height: 42, borderRadius: 10,
@@ -36,7 +36,7 @@ export default function FeaturedStartupRow({ startup, NAVY, navigate, role }) {
                 </div>
             </td>
 
-            <td>
+            <td data-label="Status">
                 <Badge bg="" style={{
                     background: colors.bg,
                     color: colors.color,
@@ -47,11 +47,11 @@ export default function FeaturedStartupRow({ startup, NAVY, navigate, role }) {
                 </Badge>
             </td>
 
-            <td style={{ width: "35%" }}>
+            <td style={{ width: "35%" }} data-label="Description">
                 <span className="text-secondary">{startup.desc}</span>
             </td>
 
-            <td>
+            <td data-label="Funding">
                 <div>
                     <strong>{startup.funding}</strong>
                     <span className="text-muted ms-1">Target</span>
@@ -59,12 +59,12 @@ export default function FeaturedStartupRow({ startup, NAVY, navigate, role }) {
                 <small className="text-muted">{startup.team}</small>
             </td>
 
-            <td style={{ minWidth: 140 }}>
+            <td style={{ minWidth: 140 }} data-label="Progress">
                 <ProgressBar now={startup.progress} style={{ height: 5 }} className="mb-1" />
                 <small className="fw-semibold" style={{ color: NAVY }}>{startup.progress}%</small>
             </td>
 
-            <td>
+            <td data-label="Actions" className="fs-cell-actions">
                 {role === "entrepreneur" ? (
                     <div className="d-flex justify-content-center">
                         <Button
